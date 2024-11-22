@@ -1,0 +1,60 @@
+:root {
+    /* menu 菜单折叠状态下，让所有子菜单剧中*/
+    --el-menu-base-level-padding: 5px !important;
+
+    /* 重置侧边栏折叠过渡动画时间*/
+    --el-transition-duration: 0.18s !important;
+
+    /* 重置menu菜单项高度*/
+    --el-menu-item-height: 40px !important;
+
+    /*更改menu菜单项文字颜色（官方推荐）*/
+    --el-menu-text-color: #64748b !important;
+}
+
+html.dark {
+    --el-menu-text-color: #fff !important;
+    --el-menu-bg-color: #18181b;
+    --el-menu-hover-bg-color: #09090b;
+
+    /*重置el-notification的样式*/
+    .el-notification {
+        --el-bg-color-overlay: #1f1f1f;
+        --el-notification-content-color: white;
+        --el-notification-title-color: white;
+        --el-notification-close-color: white;
+    }
+
+    /*重置el-message-box的样式*/
+    .el-message-box {
+        background-color: #1f1f1f;
+        --el-messagebox-title-color: white;
+        --el-messagebox-content-color: white;
+        border: 1px solid #ebeef5;
+
+        .el-message-box__close {
+            color: white;
+        }
+        .el-message-box__close:hover {
+            color: var(--el-color-primary);
+        }
+
+    }
+}
+
+/* 重置弹出菜单的样式*/
+.el-menu--popup {
+    padding: 0 !important;
+}
+
+.el-overlay.is-message-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    height: 100vh;
+    background-color: var(--el-overlay-color-lighter);
+    overflow: hidden !important;
+}

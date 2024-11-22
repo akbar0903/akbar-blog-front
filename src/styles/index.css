@@ -1,0 +1,32 @@
+@import 'element-plus/theme-chalk/el-notification.css';
+@import 'element-plus/theme-chalk/el-message-box.css';
+@import "@/styles/element-plus-reset.css";
+
+/* 配置自己的主题 */
+:root {
+    --my-success-color: #22c55e;
+    --my-primary-color: #0ea5e9;
+    --my-warning-color: #f97316;
+    --my-danger-color: #ef4444;
+
+    --el-color-success: var(--my-success-color) !important;
+    --el-color-danger: var(--my-danger-color) !important;
+    --el-color-warning: var(--my-warning-color) !important;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+#app {
+    height: 100%;
+    overflow: hidden;
+}
+
