@@ -6,5 +6,5 @@ import request from '@/utils/request'
  * @returns {*}
  */
 export const getLogListService = (params) => {
-  return request.get('/log', params)
+  return request.get('/log', { params })
 }

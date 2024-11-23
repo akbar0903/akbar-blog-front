@@ -18,7 +18,8 @@ onUnmounted(() => {
   <el-main class="!p-0">
     <div
       :class="isSidebarOpen ? 'ml-[170px]' : 'ml-[50px]'"
-      class="pt-[60px] h-full bg-white dark:bg-zinc-900 transition-all duration-200 ease-in-out overflow-hidden">
+      class="pt-[60px] h-full bg-white dark:bg-zinc-900 transition-all duration-200 ease-in-out overflow-hidden"
+    >
       <div
         class="content-box p-5 bg-slate-100 h-full border-tl rounded-tl-[30px] dark:bg-zinc-950 dark:text-white dark:border-t-[1px] dark:border-solid dark:border-zinc-700 overflow-auto"
       >
@@ -30,6 +31,6 @@ onUnmounted(() => {
 
 <style scoped>
 .content-box {
-  box-shadow: inset 0 3px 4px #0000001a;
+  box-shadow: var(--my-inset-box-shadow);
 }
 </style>

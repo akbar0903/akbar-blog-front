@@ -21,7 +21,7 @@ onUnmounted(() => {
 <template>
   <el-aside
     :width="isSidebarOpen ? 170 + 'px' : 50 + 'px'"
-    class="fixed top-[60px] left-0 transform h-full bg-white transition-all duration-200 ease-in-out !overflow-x-hidden dark:bg-zinc-900"
+    class="fixed top-[60px] left-0 h-full bg-white transition-all duration-200 ease-in-out !overflow-x-hidden dark:bg-zinc-900"
   >
     <el-menu
       :class="{ '!w-[35px]': !isSidebarOpen }"

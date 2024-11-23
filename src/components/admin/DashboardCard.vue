@@ -20,7 +20,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+  <div class="col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-3">
     <div
       class="group card overflow-hidden flex flex-col bg-white rounded-xl cursor-pointer dark:bg-zinc-900"
     >
@@ -49,8 +49,6 @@ const props = defineProps({
 
 <style scoped>
 .card {
-  box-shadow:
-    0 3px 4px #0000001a,
-    0 24px 36px #0000000a;
+  box-shadow: var(--my-base-box-shadow);
 }
 </style>

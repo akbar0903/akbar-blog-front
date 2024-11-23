@@ -9,36 +9,56 @@
     --el-menu-item-height: 40px !important;
 
     /*更改menu菜单项文字颜色（官方推荐）*/
-    --el-menu-text-color: #64748b !important;
+    --el-menu-text-color: var(--my-menu-text-color) !important;
 }
 
 html.dark {
-    --el-menu-text-color: #fff !important;
-    --el-menu-bg-color: #18181b;
-    --el-menu-hover-bg-color: #09090b;
+    --el-menu-text-color: var(--my-base-dark-text-color) !important;
+    --el-menu-bg-color: var(--my-secodary-dark-bg-color);
+    --el-menu-hover-bg-color: var(--my-base-dark-bg-color);
 
     /*重置el-notification的样式*/
     .el-notification {
-        --el-bg-color-overlay: #1f1f1f;
-        --el-notification-content-color: white;
-        --el-notification-title-color: white;
-        --el-notification-close-color: white;
+        --el-bg-color-overlay: var(--my-message-dark-bg-color);
+        --el-notification-content-color: var(--my-base-dark-text-color);
+        --el-notification-title-color: var(--my-base-dark-text-color);
+        --el-notification-close-color: var(--my-base-dark-text-color);
     }
 
     /*重置el-message-box的样式*/
     .el-message-box {
-        background-color: #1f1f1f;
-        --el-messagebox-title-color: white;
-        --el-messagebox-content-color: white;
-        border: 1px solid #ebeef5;
+        background-color: var(--my-message-dark-bg-color);
+        --el-messagebox-title-color: var(--my-base-dark-text-color);
+        --el-messagebox-content-color: var(--my-base-dark-text-color);
+        border: var(--my-message-border);
 
         .el-message-box__close {
-            color: white;
+            color: var(--my-base-dark-text-color);
         }
         .el-message-box__close:hover {
-            color: var(--el-color-primary);
+            color: var(--my-prymary-color);
         }
+    }
 
+    /*重置el-card的样式*/
+    .table-box.el-card {
+        --el-card-border-color: var(--my-base-dark-border-color);
+        background-color: var(--my-secodary-dark-bg-color);
+
+    }
+
+    /*重置el-table的样式*/
+    .el-table {
+        --el-table-text-color: var(--my-base-dark-text-color);
+        --el-table-tr-bg-color: var(--my-secodary-dark-bg-color);
+        --el-table-border-color: var(--my-base-dark-border-color);
+        --el-table-header-bg-color: var(--my-secodary-dark-bg-color);
+        --el-table-row-hover-bg-color:var(--my-base-dark-border-color);
+    }
+
+    /*重置el-pagination的样式*/
+    .el-pagination__total {
+        color: var(--my-base-dark-text-color);
     }
 }
 
@@ -47,6 +67,7 @@ html.dark {
     padding: 0 !important;
 }
 
+/* el-message-box的遮罩层样式*/
 .el-overlay.is-message-box {
     position: fixed;
     top: 0;
@@ -55,6 +76,6 @@ html.dark {
     left: 0;
     z-index: 2000;
     height: 100vh;
-    background-color: var(--el-overlay-color-lighter);
+    background-color: var(--my-overlay-color);
     overflow: hidden !important;
 }

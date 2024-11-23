@@ -1,10 +1,42 @@
 <script setup>
 import DashboardCard from '@/components/admin/DashboardCard.vue'
+import { getLogListService } from '@/api/log.js'
+import { ref } from 'vue'
+
+// 分页参数
+const params = ref({
+  pageNum: 1,
+  pageSize: 10,
+})
+// 默认总条数
+const total = ref(0)
+
+// 更改每页显示的总条数
+const handleSizeChange = (size) => {
+  params.value.pageNum = 1
+  params.value.pageSize = size
+  getLogList()
+}
+
+// 更改当前页
+const handleCurrentChange = (page) => {
+  params.value.pageNum = page
+  getLogList()
+}
+
+const logList = ref([])
+const getLogList = async () => {
+  const result = await getLogListService(params.value)
+  logList.value = result.data.records
+  total.value = result.data.total
+}
+getLogList()
 </script>
 
 <template>
+  <!--卡片组-->
   <div class="grid grid-cols-12 gap-6 mb-4">
-    <DashboardCard value="567" title="用户" >
+    <DashboardCard value="567" title="用户">
       <template #icon>
         <icon-mdi-account-supervisor />
       </template>
@@ -52,4 +84,45 @@ import DashboardCard from '@/components/admin/DashboardCard.vue'
       </template>
     </DashboardCard>
   </div>
+
+  <!--日志列表-->
+  <el-card class="table-box bg-white">
+    <template #header>
+      <el-tag class="!text-base" effect="dark" type="success" size="large">日志列表</el-tag>
+    </template>
+    <el-table :data="logList" class="!w-full">
+      <el-table-column type="index" label="序号" width="80" align="center" />
+      <el-table-column prop="operationType" label="操作类型">
+        <template v-slot="scope">
+          <el-tag :type="scope.row.logLevel">
+            {{ scope.row.operationType }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="details" label="详情" />
+      <el-table-column prop="operator" label="操作人" />
+      <el-table-column prop="operatedTime" label="操作时间" />
+      <el-table-column prop="ipAddress" label="IP地址" />
+    </el-table>
+
+    <!--分页-->
+    <el-pagination
+      class="!mt-4 justify-self-end"
+      v-model:current-page="params.pageNum"
+      v-model:page-size="params.pageSize"
+      :page-sizes="[10, 20, 30, 40, 50]"
+      size="default"
+      background
+      layout="total, sizes, prev, pager, next"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
+  </el-card>
 </template>
+
+<style scoped>
+.table-box {
+  box-shadow: var(--my-base-box-shadow) !important;
+}
+</style>

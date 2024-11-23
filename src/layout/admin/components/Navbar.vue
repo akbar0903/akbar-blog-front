@@ -24,7 +24,11 @@ const toggleTheme = () => {
     adminStore.setTheme(isDarkMode.value ? 'dark' : 'light')
     document.documentElement.classList.toggle('dark', isDarkMode.value)
   } catch (error) {
-    console.error('切换主题时出错:', error)
+    ElNotification({
+      type: 'error',
+      title: '切换主题失败',
+      message: `${error.message}`,
+    })
   }
 }
 
@@ -40,9 +44,21 @@ onMounted(() => {
 const openFullscreen = () => {
   const element = document.documentElement
   if (!document.fullscreenElement) {
-    element.requestFullscreen().catch((err) => console.error(err))
+    element.requestFullscreen().catch((err) => {
+      ElNotification({
+        type: 'error',
+        title: '进入全屏失败',
+        message: `${err.message}`,
+      })
+    })
   } else if (document.exitFullscreen) {
-    document.exitFullscreen().catch((err) => console.error(err))
+    document.exitFullscreen().catch((err) => {
+      ElNotification({
+        type: 'error',
+        title: '退出全屏失败',
+        message: `${err.message}`,
+      })
+    })
   }
 }
 
@@ -115,19 +131,18 @@ const logout = async () => {
           />
         </button>
 
-        <el-dropdown popper-class="!dark:bg-zinc-900">
-          <el-avatar class="w-10 !select-none" shape="square">
-            <img src="@/assets/images/walter.jpg" alt="walter" />
-          </el-avatar>
-          <template #dropdown>
-            <el-dropdown-menu class="dark:bg-zinc-900 dark:text-white">
-              <el-dropdown-item @click="router.push({ name: 'personal' })"
-                >个人中心</el-dropdown-item
-              >
-              <el-dropdown-item @click="logout"> 退出登录 </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <button
+          @click="logout"
+          class="group hover:bg-blue-50 dark:hover:bg-zinc-800 rounded-full p-[6px] transition-colors duration-200"
+        >
+          <icon-mdi-logout
+            class="text-lg text-slate-500 dark:text-white dark:group-hover:text-blue-500 transition-colors duration-200"
+          />
+        </button>
+
+        <el-avatar class="w-10 !select-none" shape="square">
+          <img src="@/assets/images/walter.jpg" alt="walter" />
+        </el-avatar>
       </div>
     </div>
   </header>
