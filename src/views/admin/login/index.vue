@@ -48,8 +48,8 @@ const login = async () => {
     if (result.code === 0) {
       adminStore.setToken(result.data)
       ElNotification({
-        title: '登录成功',
-        message: result.message,
+        title: '成功',
+        message: '登录成功！',
         type: 'success',
         duration: 3000,
       })
@@ -63,14 +63,14 @@ const login = async () => {
       })
     }
   } catch (error) {
-    // 捕获任何错误（例如 API 请求失败）
-    console.error(error)
-    ElNotification({
-      title: '请求错误',
-      message: '网络或服务器出现问题，请稍后再试。',
-      type: 'error',
-      duration: 3000,
-    })
+    if (!error.response) {
+      ElNotification({
+        title: '请求错误',
+        message: `${error.message}`,
+        type: 'error',
+        duration: 3000,
+      })
+    }
   } finally {
     // 无论成功或失败，重置按钮状态
     isLoading.value = false

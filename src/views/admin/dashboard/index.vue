@@ -3,6 +3,8 @@ import DashboardCard from '@/components/admin/DashboardCard.vue'
 import { getLogListService } from '@/api/log.js'
 import { ref } from 'vue'
 
+// 表格加载状态
+const loading = ref(false)
 // 分页参数
 const params = ref({
   pageNum: 1,
@@ -26,9 +28,11 @@ const handleCurrentChange = (page) => {
 
 const logList = ref([])
 const getLogList = async () => {
+  loading.value = true
   const result = await getLogListService(params.value)
   logList.value = result.data.records
   total.value = result.data.total
+  loading.value = false
 }
 getLogList()
 </script>
@@ -90,7 +94,7 @@ getLogList()
     <template #header>
       <el-tag class="!text-base" effect="dark" type="success" size="large">日志列表</el-tag>
     </template>
-    <el-table :data="logList" class="!w-full">
+    <el-table :data="logList" class="!w-full" v-loading="loading">
       <el-table-column type="index" label="序号" width="80" align="center" />
       <el-table-column prop="operationType" label="操作类型">
         <template v-slot="scope">

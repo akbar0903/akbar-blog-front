@@ -75,7 +75,8 @@ const logout = async () => {
       adminStore.setAdmin({})
       ElNotification({
         type: 'success',
-        message: '退出登录成功',
+        title: '成功',
+        message: '退出登录成功，欢迎下次光临！',
       })
     })
     .catch(() => {

@@ -60,6 +60,10 @@ html.dark {
     .el-pagination__total {
         color: var(--my-base-dark-text-color);
     }
+
+    .el-loading-mask {
+        background-color: var(--my-overlay-color);
+    }
 }
 
 /* 重置弹出菜单的样式*/
