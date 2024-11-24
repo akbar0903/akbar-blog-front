@@ -41,7 +41,7 @@ html.dark {
     }
 
     /*重置el-card的样式*/
-    .table-box.el-card {
+    .el-card {
         --el-card-border-color: var(--my-base-dark-border-color);
         background-color: var(--my-secodary-dark-bg-color);
 
@@ -61,8 +61,18 @@ html.dark {
         color: var(--my-base-dark-text-color);
     }
 
+    /*重置el-loading的样式*/
     .el-loading-mask {
         background-color: var(--my-overlay-color);
+    }
+    /*重置el-input的样式*/
+    .el-input {
+        --el-input-bg-color: var(--my-base-dark-bg-color);
+        --el-input-text-color: var(--my-base-dark-text-color)
+    }
+
+    .el-form-item__label {
+        color: var(--my-base-dark-text-color);
     }
 }
 
@@ -82,4 +92,8 @@ html.dark {
     height: 100vh;
     background-color: var(--my-overlay-color);
     overflow: hidden !important;
+}
+
+.el-form-item__label {
+    font-weight: bold;
 }

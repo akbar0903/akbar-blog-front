@@ -83,14 +83,30 @@ onUnmounted(() => {
         </template>
       </el-menu-item>
 
-      <el-menu-item index="personal" :route="{ name: 'personal' }">
-        <el-icon>
-          <icon-mdi-account-circle class="menu-icon" />
-        </el-icon>
+      <el-sub-menu index="personal-submenu">
         <template #title>
+          <el-icon>
+            <icon-mdi-account-circle class="menu-icon" />
+          </el-icon>
           <span class="menu-title">个人中心</span>
         </template>
-      </el-menu-item>
+        <el-menu-item index="profile" :route="{ name: 'profile' }">
+          <el-icon>
+            <icon-mdi-information class="menu-icon" />
+          </el-icon>
+          <template #title>
+            <span class="menu-title">个人信息</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="updatePWD" :route="{ name: 'updatePWD' }">
+          <el-icon>
+            <icon-mdi-account-lock-open class="menu-icon" />
+          </el-icon>
+          <template #title>
+            <span class="menu-title">修改密码</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
     </el-menu>
   </el-aside>
 </template>

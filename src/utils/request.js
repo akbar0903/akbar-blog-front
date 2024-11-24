@@ -13,7 +13,7 @@ const instance = axios.create({
   timeout: 10000,
 })
 
-//请求拦截器
+//请求拦截
 instance.interceptors.request.use((config) => {
   const adminStore = useAdminStore()
 
@@ -23,7 +23,7 @@ instance.interceptors.request.use((config) => {
   return config
 })
 
-//响应拦截器
+//响应拦截
 instance.interceptors.response.use(
   (response) => {
     if (response.data.code === 0) {

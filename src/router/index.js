@@ -14,7 +14,8 @@ const articleList = () => import('@/views/admin/Article/List.vue')
 const articleEdit = () => import('@/views/admin/Article/Edit.vue')
 const categoryList = () => import('@/views/admin/category/List.vue')
 const tagList = () => import('@/views/admin/tag/List.vue')
-const personal = () => import('@/views/admin/personal/Profile.vue')
+const profile = () => import('@/views/admin/personal/Profile.vue')
+const updatePWD = () => import('@/views/admin/personal/UpdatePWD.vue')
 
 const routes = [
   /*---------------------------------前台路由---------------------------------*/
@@ -70,9 +71,14 @@ const routes = [
         name: 'tagList',
       },
       {
-        path: 'personal',
-        component: personal,
-        name: 'personal',
+        path: 'profile',
+        component: profile,
+        name: 'profile',
+      },
+      {
+        path: 'updatePWD',
+        component: updatePWD,
+        name: 'updatePWD',
       },
     ],
   },

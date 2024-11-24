@@ -20,3 +20,17 @@ export const adminLoginService = (loginData) => {
 export const adminGetInfoService = () => {
   return request.get('/admin')
 }
+
+/**
+ * 更新管理员密码
+ * @param data
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export const adminUpdatePasswordService = (data) => {
+  const params = new FormData()
+  params.append('oldPassword', data.oldPassword)
+  params.append('newPassword', data.newPassword)
+  params.append('confirmPassword', data.confirmPassword)
+
+  return request.patch('/admin', params)
+}

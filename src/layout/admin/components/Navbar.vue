@@ -73,10 +73,11 @@ const logout = async () => {
       router.push({ name: 'adminLogin' })
       adminStore.removeToken()
       adminStore.setAdmin({})
+      document.documentElement.classList.remove('dark')
       ElNotification({
         type: 'success',
         title: '成功',
-        message: '退出登录成功，欢迎下次光临！',
+        message: '欢迎下次光临！',
       })
     })
     .catch(() => {

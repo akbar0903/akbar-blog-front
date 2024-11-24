@@ -1,0 +1,31 @@
+:root {
+    /* 自定义颜色 */
+    --my-prymary-color: #409eff;
+    --my-success-color: #22c55e;
+    --my-warning-color: #f97316;
+    --my-danger-color: #ef4444;
+    --my-menu-text-color: #64748b;
+    --my-overlay-color: rgba(0,0,0,0.5);
+
+    /* 覆盖element-plus默认颜色 */
+    --el-color-success: var(--my-success-color) !important;
+    --el-color-danger: var(--my-danger-color) !important;
+    --el-color-warning: var(--my-warning-color) !important;
+
+    /* 深色主题颜色 */
+    --my-base-dark-bg-color: #09090b;
+    --my-secodary-dark-bg-color: #18181b;
+    --my-message-dark-bg-color: #1f1f1f;
+    --my-base-dark-border-color: #3f3f46;
+    --my-message-dark-border-color: #ebeef5;
+    --my-base-dark-hover-color: #3f3f46;
+    --my-base-dark-text-color: white;
+
+    /* 自定义阴影*/
+    --my-base-box-shadow: 0 3px 4px #0000001a,
+    0 24px 36px #0000000a;
+    --my-inset-box-shadow: inset 0 3px 4px #0000001a;
+
+    /* 边框 */
+    --my-message-border: 1px solid var(--my-message-dark-border-color)
+}

@@ -39,7 +39,7 @@ getLogList()
 
 <template>
   <!--卡片组-->
-  <div class="grid grid-cols-12 gap-6 mb-4">
+  <div class="grid grid-cols-12 gap-6 mb-6">
     <DashboardCard value="567" title="用户">
       <template #icon>
         <icon-mdi-account-supervisor />
