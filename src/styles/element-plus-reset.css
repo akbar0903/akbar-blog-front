@@ -71,8 +71,13 @@ html.dark {
         --el-input-text-color: var(--my-base-dark-text-color)
     }
 
+    /*重置el-form-item-label的样式*/
     .el-form-item__label {
         color: var(--my-base-dark-text-color);
+    }
+
+    .el-drawer {
+        --el-drawer-bg-color: var(--my-secodary-dark-bg-color);
     }
 }
 

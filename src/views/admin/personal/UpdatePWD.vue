@@ -1,5 +1,5 @@
 <script setup>
-import { ElMessageBox, ElNotification } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { adminUpdatePasswordService } from '@/api/admin.js'
 import { ref } from 'vue'
 import { useAdminStore } from '@/stores/index.js'
@@ -19,30 +19,15 @@ const validateNewPassword = () => {
     !passwordModel.value.confirmPassword ||
     !passwordModel.value.oldPassword
   ) {
-    ElNotification({
-      title: '错误',
-      message: '密码不能为空！',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('密码不能为空！')
     return false
   }
   if (!newPasswordPattern.test(passwordModel.value.newPassword)) {
-    ElNotification({
-      title: '错误',
-      message: '密码至少包含大小写字母和数字，长度至少6位！',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('密码至少包含大小写字母和数字，长度至少6位！')
     return false
   }
   if (passwordModel.value.newPassword !== passwordModel.value.confirmPassword) {
-    ElNotification({
-      title: '错误',
-      message: '两次输入的密码不一致',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('两次输入的密码不一致！')
     return false
   }
   return true
@@ -61,12 +46,7 @@ const updatePassword = async () => {
       type: 'warning',
     })
     const result = await adminUpdatePasswordService(passwordModel.value)
-    ElNotification({
-      title: '成功',
-      message: result.message,
-      type: 'success',
-      duration: 3000,
-    })
+    ElMessage.success(result.message)
     const adminStore = useAdminStore()
     adminStore.removeToken()
     adminStore.setAdmin({})
@@ -74,19 +54,10 @@ const updatePassword = async () => {
     location.reload() // 刷新页面
   } catch (error) {
     if (error === 'cancel') {
-      ElNotification({
-        message: '已取消操作！',
-        type: 'info',
-        duration: 3000,
-      })
+      ElMessage.info('已取消操作！')
     } else {
       // 网络或其他错误
-      ElNotification({
-        title: '错误',
-        message: error.message || '密码更新失败！',
-        type: 'error',
-        duration: 3000,
-      })
+      ElMessage.error(error.message || '密码更新失败！')
     }
   }
 }

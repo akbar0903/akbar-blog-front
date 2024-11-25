@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/stores'
-import { ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { adminLoginService } from '@/api/admin'
 import { ref } from 'vue'
 
@@ -21,22 +21,12 @@ const login = async () => {
   const { username, password } = formData.value
 
   if (!username || !usernamePattern.test(username)) {
-    ElNotification({
-      title: '验证失败',
-      message: '用户名必须是5到16个字符，且不能包含空格！',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('用户名必须是5到16个字符，且不能包含空格！')
     return
   }
 
   if (!password || !passwordPattern.test(password)) {
-    ElNotification({
-      title: '验证失败',
-      message: '密码至少6位，且必须包含大小写字母和数字！',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('密码至少6位，且必须包含大小写字母和数字！')
     return
   }
 
@@ -46,20 +36,10 @@ const login = async () => {
   try {
     const result = await adminLoginService(formData.value)
     adminStore.setToken(result.data)
-    ElNotification({
-      title: '成功',
-      message: '登录成功！',
-      type: 'success',
-      duration: 3000,
-    })
+    ElMessage.success('登录成功！')
     await router.push({ name: 'adminDashboard' })
   } catch (error) {
-    ElNotification({
-      title: '失败',
-      message: error.message,
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error(error.message)
   } finally {
     // 无论成功或失败，重置按钮状态
     isLoading.value = false
@@ -109,7 +89,7 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
 
 <style scoped>
 .login-container {
-  background: url('@/assets/images/login_bg.jpg') no-repeat;
+  background: url('https://blog-ultimate.oss-cn-beijing.aliyuncs.com/login_bg.jpg') no-repeat;
   background-size: cover;
 }
 </style>

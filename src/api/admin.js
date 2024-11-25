@@ -51,3 +51,13 @@ export const adminUpdateInfoService = (data) => {
 
   return request.patch('/admin/updateInfo', params)
 }
+
+/**
+ * 获取管理员头像历史列表
+ * @param params
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+
+export const adminGetAvatarListService = (params) => {
+  return request.get('/userAvatarHistory', { params })
+}

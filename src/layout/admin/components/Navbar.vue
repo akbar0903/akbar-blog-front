@@ -3,7 +3,7 @@ import NavbarIcon from '@/components/admin/NavbarIcon.vue'
 import emitter from '@/utils/emitter'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import { ElMessageBox, ElNotification } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useAdminStore } from '@/stores'
 
 const router = useRouter()
@@ -24,11 +24,7 @@ const toggleTheme = () => {
     adminStore.setTheme(isDarkMode.value ? 'dark' : 'light')
     document.documentElement.classList.toggle('dark', isDarkMode.value)
   } catch (error) {
-    ElNotification({
-      type: 'error',
-      title: '切换主题失败',
-      message: `${error.message}`,
-    })
+    ElMessage.error(error.message)
   }
 }
 
@@ -45,19 +41,11 @@ const openFullscreen = () => {
   const element = document.documentElement
   if (!document.fullscreenElement) {
     element.requestFullscreen().catch((err) => {
-      ElNotification({
-        type: 'error',
-        title: '进入全屏失败',
-        message: err.message,
-      })
+      ElMessage.error(err.message)
     })
   } else if (document.exitFullscreen) {
     document.exitFullscreen().catch((err) => {
-      ElNotification({
-        type: 'error',
-        title: '退出全屏失败',
-        message: err.message,
-      })
+      ElMessage.error(err.message)
     })
   }
 }
@@ -74,17 +62,10 @@ const logout = async () => {
       adminStore.setAdmin({})
       document.documentElement.classList.remove('dark')
       adminStore.removeToken()
-      ElNotification({
-        type: 'success',
-        title: '成功',
-        message: '欢迎下次光临！',
-      })
+      ElMessage.success('欢迎下次光临！')
     })
     .catch(() => {
-      ElNotification({
-        type: 'info',
-        message: '已取消操作',
-      })
+      ElMessage.info('操作已取消！')
     })
 }
 </script>
@@ -95,7 +76,11 @@ const logout = async () => {
       <!-- 左侧容器-->
       <div class="flex items-center justify-center space-x-2">
         <router-link :to="{ name: 'adminDashboard' }" class="flex items-center space-x-1">
-          <img src="@/assets/images/logo.png" alt="logo-image" class="w-10" />
+          <img
+            src="https://blog-ultimate.oss-cn-beijing.aliyuncs.com/logo.png"
+            alt="logo-image"
+            class="w-10"
+          />
           <h1 class="text-xl font-bold text-slate-700 dark:text-white">Blog Admin</h1>
         </router-link>
         <button
@@ -142,9 +127,7 @@ const logout = async () => {
           />
         </button>
 
-        <el-avatar class="w-10 !select-none" shape="square">
-          <img src="@/assets/images/walter.jpg" alt="walter" />
-        </el-avatar>
+        <el-avatar :src="adminStore.admin.avatar" class="w-10 !select-none" shape="square" />
       </div>
     </div>
   </header>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useAdminStore } from '@/stores'
-import { ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 /**
  * axios 请求拦截器
@@ -46,12 +46,7 @@ instance.interceptors.response.use(
 
       // 判断是否重复通知
       if (!error.isHandled) {
-        ElNotification({
-          title: '错误',
-          message,
-          type: 'error',
-          duration: 3000,
-        })
+        ElMessage.error(message)
         error.isHandled = true // 标记已处理
       }
       // 处理401错误，当token过期的时候，清除token信息，这样路由守卫就可以自动跳转到登陆页面了
@@ -61,19 +56,9 @@ instance.interceptors.response.use(
         adminStore.removeToken()
         location.reload()
       } else if (error.request) {
-        ElNotification({
-          title: '错误',
-          message: '网络请求超时！',
-          type: 'error',
-          duration: 3000,
-        })
+        ElMessage.error('网络请求超时！')
       } else {
-        ElNotification({
-          title: '错误',
-          message: '请求配置错误！',
-          type: 'error',
-          duration: 3000,
-        })
+        ElMessage.error(message)
       }
       return Promise.reject(error)
     }
