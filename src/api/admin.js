@@ -34,3 +34,20 @@ export const adminUpdatePasswordService = (data) => {
 
   return request.patch('/admin', params)
 }
+
+/**
+ * 更新管理员信息
+ * @param data
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+
+export const adminUpdateInfoService = (data) => {
+  const params = new FormData()
+  params.append('nickname', data.nickname)
+  params.append('avatar', data.avatar)
+  params.append('githubUrl', data.githubUrl)
+  params.append('giteeUrl', data.giteeUrl)
+  params.append('biliUrl', data.biliUrl)
+
+  return request.patch('/admin/updateInfo', params)
+}
