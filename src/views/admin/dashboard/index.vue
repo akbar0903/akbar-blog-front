@@ -92,7 +92,7 @@ getLogList()
   <!--日志列表-->
   <el-card class="table-box bg-white">
     <template #header>
-      <el-tag class="!text-base" effect="dark" type="success" size="large">日志列表</el-tag>
+      <span class="text-base text-zinc-500 dark:text-white font-bold">日志列表</span>
     </template>
     <el-table :data="logList" class="!w-full" v-loading="loading">
       <el-table-column type="index" label="序号" width="80" align="center" />

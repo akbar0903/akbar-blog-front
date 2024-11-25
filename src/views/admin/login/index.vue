@@ -45,32 +45,21 @@ const login = async () => {
 
   try {
     const result = await adminLoginService(formData.value)
-    if (result.code === 0) {
-      adminStore.setToken(result.data)
-      ElNotification({
-        title: '成功',
-        message: '登录成功！',
-        type: 'success',
-        duration: 3000,
-      })
-      await router.push({ name: 'adminDashboard' })
-    } else {
-      ElNotification({
-        title: '登录失败',
-        message: result.message,
-        type: 'error',
-        duration: 3000,
-      })
-    }
+    adminStore.setToken(result.data)
+    ElNotification({
+      title: '成功',
+      message: '登录成功！',
+      type: 'success',
+      duration: 3000,
+    })
+    await router.push({ name: 'adminDashboard' })
   } catch (error) {
-    if (!error.response) {
-      ElNotification({
-        title: '请求错误',
-        message: `${error.message}`,
-        type: 'error',
-        duration: 3000,
-      })
-    }
+    ElNotification({
+      title: '失败',
+      message: error.message,
+      type: 'error',
+      duration: 3000,
+    })
   } finally {
     // 无论成功或失败，重置按钮状态
     isLoading.value = false

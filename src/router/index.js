@@ -98,8 +98,8 @@ router.beforeEach(async (to, from, next) => {
   if (isAdminPage && !token) {
     // 访问后台页面但没有token
     ElNotification({
-      title: '访问失败',
-      message: '请先登录！',
+      title: '错误',
+      message: '认证失败，请先登录！',
       type: 'error',
       duration: 3000,
     })

@@ -37,7 +37,7 @@ instance.interceptors.response.use(
     if (error.response) {
       const { status } = error.response
       const messageMap = {
-        401: '认证失败，请重新登录！',
+        401: '认证失败，请先登录！',
         403: '没有权限！',
         404: '请求的资源不存在！',
         500: '服务器错误！',
@@ -53,16 +53,23 @@ instance.interceptors.response.use(
           duration: 3000,
         })
         error.isHandled = true // 标记已处理
+      }
+      // 处理401错误，当token过期的时候，清除token信息，这样路由守卫就可以自动跳转到登陆页面了
+      if (status === 401) {
+        const adminStore = useAdminStore()
+        adminStore.setAdmin({})
+        adminStore.removeToken()
+        location.reload()
       } else if (error.request) {
         ElNotification({
-          title: '网络错误',
+          title: '错误',
           message: '网络请求超时！',
           type: 'error',
           duration: 3000,
         })
       } else {
         ElNotification({
-          title: '配置错误',
+          title: '错误',
           message: '请求配置错误！',
           type: 'error',
           duration: 3000,

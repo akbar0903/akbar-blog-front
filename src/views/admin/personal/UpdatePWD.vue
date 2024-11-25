@@ -13,10 +13,24 @@ const passwordModel = ref({
 //校验新密码
 const newPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
 const validateNewPassword = () => {
+  //判断是否空
+  if (
+    !passwordModel.value.newPassword ||
+    !passwordModel.value.confirmPassword ||
+    !passwordModel.value.oldPassword
+  ) {
+    ElNotification({
+      title: '错误',
+      message: '密码不能为空！',
+      type: 'error',
+      duration: 3000,
+    })
+    return false
+  }
   if (!newPasswordPattern.test(passwordModel.value.newPassword)) {
     ElNotification({
       title: '错误',
-      message: '密码至少包含大小写字母和数字，长度至少6位',
+      message: '密码至少包含大小写字母和数字，长度至少6位！',
       type: 'error',
       duration: 3000,
     })

@@ -48,7 +48,7 @@ const openFullscreen = () => {
       ElNotification({
         type: 'error',
         title: '进入全屏失败',
-        message: `${err.message}`,
+        message: err.message,
       })
     })
   } else if (document.exitFullscreen) {
@@ -56,7 +56,7 @@ const openFullscreen = () => {
       ElNotification({
         type: 'error',
         title: '退出全屏失败',
-        message: `${err.message}`,
+        message: err.message,
       })
     })
   }
@@ -71,9 +71,9 @@ const logout = async () => {
   })
     .then(() => {
       router.push({ name: 'adminLogin' })
-      adminStore.removeToken()
       adminStore.setAdmin({})
       document.documentElement.classList.remove('dark')
+      adminStore.removeToken()
       ElNotification({
         type: 'success',
         title: '成功',
