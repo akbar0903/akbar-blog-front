@@ -6,7 +6,7 @@ import { ref } from 'vue'
 // 表格加载状态
 const loading = ref(false)
 // 分页参数
-const params = ref({
+const paginationParams = ref({
   pageNum: 1,
   pageSize: 10,
 })
@@ -15,21 +15,21 @@ const total = ref(0)
 
 // 更改每页显示的总条数
 const handleSizeChange = (size) => {
-  params.value.pageNum = 1
-  params.value.pageSize = size
+  paginationParams.value.pageNum = 1
+  paginationParams.value.pageSize = size
   getLogList()
 }
 
 // 更改当前页
 const handleCurrentChange = (page) => {
-  params.value.pageNum = page
+  paginationParams.value.pageNum = page
   getLogList()
 }
 
 const logList = ref([])
 const getLogList = async () => {
   loading.value = true
-  const result = await getLogListService(params.value)
+  const result = await getLogListService(paginationParams.value)
   logList.value = result.data.records
   total.value = result.data.total
   loading.value = false
@@ -112,8 +112,8 @@ getLogList()
     <!--分页-->
     <el-pagination
       class="!mt-4 justify-self-end"
-      v-model:current-page="params.pageNum"
-      v-model:page-size="params.pageSize"
+      v-model:current-page="paginationParams.pageNum"
+      v-model:page-size="paginationParams.pageSize"
       :page-sizes="[10, 20, 30, 40, 50]"
       size="default"
       background

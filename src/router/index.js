@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAdminStore } from '@/stores/index.js'
-import { ElMessage, ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 /*---------------------------------前台组件导入---------------------------------*/
 const frontLayout = () => import('@/layout/front/index.vue')
@@ -16,6 +16,7 @@ const categoryList = () => import('@/views/admin/category/List.vue')
 const tagList = () => import('@/views/admin/tag/List.vue')
 const profile = () => import('@/views/admin/personal/Profile.vue')
 const updatePWD = () => import('@/views/admin/personal/UpdatePWD.vue')
+const avatarHistory = () => import('@/views/admin/album/AvatarHistory.vue')
 
 const routes = [
   /*---------------------------------前台路由---------------------------------*/
@@ -69,6 +70,11 @@ const routes = [
         path: 'tag',
         component: tagList,
         name: 'tagList',
+      },
+      {
+        path: 'avatarHistory',
+        component: avatarHistory,
+        name: 'avatarHistory',
       },
       {
         path: 'profile',

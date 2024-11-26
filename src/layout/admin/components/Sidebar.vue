@@ -83,6 +83,23 @@ onUnmounted(() => {
         </template>
       </el-menu-item>
 
+      <el-sub-menu index="album-submenu">
+        <template #title>
+          <el-icon>
+            <icon-mdi-image class="menu-icon" />
+          </el-icon>
+          <span class="menu-title">相册管理</span>
+        </template>
+        <el-menu-item index="avatarHistory" :route="{ name: 'avatarHistory' }">
+          <el-icon>
+            <icon-mdi-account-box-multiple class="menu-icon" />
+          </el-icon>
+          <template #title>
+            <span class="menu-title">头像列表</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
+
       <el-sub-menu index="personal-submenu">
         <template #title>
           <el-icon>

@@ -62,13 +62,3 @@ export const adminUpdateAvatarService = (data) => {
 
   return request.patch('/admin/updateAvatar', formData)
 }
-
-/**
- * 获取管理员头像历史列表
- * @param params
- * @returns {Promise<axios.AxiosResponse<any>>}
- */
-
-export const adminGetAvatarListService = (params) => {
-  return request.get('/userAvatarHistory', { params })
-}

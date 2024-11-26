@@ -1,23 +1,24 @@
 <script setup>
-import { adminGetAvatarListService, adminUpdateAvatarService } from '@/api/admin.js'
+import { adminUpdateAvatarService } from '@/api/admin.js'
 import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { useAdminStore } from '@/stores/index.js'
 import { fileUploadService } from '@/api/upload.js'
+import { adminGetAvatarListService } from '@/api/avatar-history.js'
 
 // 分页
-const params = ref({
+const paginationParams = ref({
   pageNum: 1,
   pageSize: 10,
 })
 const total = ref(0)
 const handleCurrentChange = (page) => {
-  params.value.pageNum = page
+  paginationParams.value.pageNum = page
   loadAvatarHistory()
 }
 const handleSizeChange = (size) => {
-  params.value.pageNum = 1
-  params.value.pageSize = size
+  paginationParams.value.pageNum = 1
+  paginationParams.value.pageSize = size
   loadAvatarHistory()
 }
 
@@ -32,7 +33,7 @@ const openDrawer = () => {
 const avatarHistory = ref([])
 const loadAvatarHistory = async () => {
   try {
-    const result = await adminGetAvatarListService(params.value)
+    const result = await adminGetAvatarListService(paginationParams.value)
     avatarHistory.value = result.data.records
     total.value = result.data.total
   } catch (error) {
@@ -135,8 +136,8 @@ const uploadAvatar = async () => {
     </div>
     <template #footer>
       <el-pagination
-        v-model:current-page="params.pageNum"
-        v-model:page-size="params.pageSize"
+        v-model:current-page="paginationParams.pageNum"
+        v-model:page-size="paginationParams.pageSize"
         :page-sizes="[5, 10, 15, 20]"
         size="default"
         background
