@@ -44,12 +44,23 @@ export const adminUpdatePasswordService = (data) => {
 export const adminUpdateInfoService = (data) => {
   const params = new FormData()
   params.append('nickname', data.nickname)
-  params.append('avatar', data.avatar)
   params.append('githubUrl', data.githubUrl)
   params.append('giteeUrl', data.giteeUrl)
   params.append('biliUrl', data.biliUrl)
 
   return request.patch('/admin/updateInfo', params)
+}
+
+/**
+ * 更新管理员头像
+ * @param data
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export const adminUpdateAvatarService = (data) => {
+  const formData = new FormData()
+  formData.append('avatar', data.avatar)
+
+  return request.patch('/admin/updateAvatar', formData)
 }
 
 /**

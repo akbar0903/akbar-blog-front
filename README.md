@@ -181,3 +181,95 @@ export default instance
     }
 ```
 不用判断code等于几，因为try里面是处理成功状态的逻辑，catch里面是处理失败状态的逻辑。
+
+# 头像上传
+管理员头像上传模块我使用了头像历史列表，把以前使用过的头像都存起来，当想换头像的时候，可以使用以前使用过的头像或者上传新的头像。
+```js
+// 获取头像列表
+const avatarHistory = ref([])
+const loadAvatarHistory = async () => {
+  try {
+    const result = await adminGetAvatarListService(params.value)
+    avatarHistory.value = result.data.records
+    total.value = result.data.total
+  } catch (error) {
+    ElMessage.error(error.message)
+  }
+}
+
+const adminStore = useAdminStore()
+const avatarUrl = ref(adminStore.admin.avatar)
+const selectedFile = ref(null)
+const isHistoryAvatar = ref(false) // 是否是历史头像
+
+// 预览头像
+const onSelectFile = (uploadFile) => {
+  avatarUrl.value = URL.createObjectURL(uploadFile.raw)
+  selectedFile.value = uploadFile.raw // Save the selected file
+  isHistoryAvatar.value = false // 选择本地头像时，默认不是历史头像
+  drawerVisible.value = false
+}
+
+// 选择历史头像
+const selectHistoryAvatar = (historyAvatarUrl) => {
+  avatarUrl.value = historyAvatarUrl
+  selectedFile.value = null
+  isHistoryAvatar.value = true // 选择的是历史头像
+  drawerVisible.value = false
+}
+
+// 修改头像
+const uploadAvatar = async () => {
+  if (avatarUrl.value === adminStore.admin.avatar) {
+    // 如果没有选择新的头像
+    ElMessage.warning('请选择一个新的头像！')
+    return
+  }
+
+  try {
+    let updatedAvatarUrl = avatarUrl.value
+    if (!isHistoryAvatar.value && selectedFile.value) {
+      const uploadResult = await fileUploadService(selectedFile.value)
+      updatedAvatarUrl = uploadResult.data
+    }
+    await adminUpdateAvatarService({ avatar: updatedAvatarUrl })
+    adminStore.admin.avatar = updatedAvatarUrl
+    avatarUrl.value = updatedAvatarUrl
+    ElMessage.success('头像修改成功！')
+  } catch (error) {
+    ElMessage.error('头像更新失败！' + error.message)
+  }
+}
+```
+`avatarUrl`用来在页面展示当前正在使用的头像。<br/>
+`selectedFile`用来保存选择的本地头像文件。<br/>
+`isHistoryAvatar`用来判断是否是历史头像。<br/>
+`onSelectFile`用来处理选择本地头像的逻辑。<br/>
+`selectHistoryAvatar`用来处理选择历史头像的逻辑。<br/>
+`uploadAvatar`用来处理上传头像的逻辑。<br/>
+当选择历史头像的时候，让`selectedFile.value = null`。<br/>
+当执行`uploadAvatar`的时候，如果没有选择新的头像，则提示用户选择一个新的头像。<br/>
+比如：`avatarUrl.value === adminStore.admin.avatar`，这里的avatarUrl从头像列表中选择得来的头像，如果从头像列表中选择的头像等于pinia中的头像，就进行提示。<br/>
+<br/>
+然后是头像上传或者修改用户头像的逻辑:<br/>
+```js
+try {
+  let updatedAvatarUrl = avatarUrl.value
+  if (!isHistoryAvatar.value && selectedFile.value) {
+    const uploadResult = await fileUploadService(selectedFile.value)
+    updatedAvatarUrl = uploadResult.data
+  }
+  await adminUpdateAvatarService({ avatar: updatedAvatarUrl })
+  adminStore.admin.avatar = updatedAvatarUrl
+  avatarUrl.value = updatedAvatarUrl
+  ElMessage.success('头像修改成功！')
+} catch (error) {
+  ElMessage.error('头像更新失败！' + error.message)
+}
+```
+`updatedAvatarUrl `是后端返回的头像地址，首先判断当前头像是不是从头像列表中选择的，如果不是再判断是不是从本地选择了新的头像。
+如果符合这两个条件，就进行上传头像操作。<br/>
+头像上传完后，拿着刚才后端返回的上传头像地址，修改用户的头像。<br/>
+并且修改pinia中的头像地址。<br/>
+因为有没有选择新的头像是通过`avatarUrl.value === adminStore.admin.avatar`来判断的。<br/>
+所以，修改完用户头像以后，需要`avatarUrl.value `要跟pinia中的头像地址一样进行修改，以便判断用户是不是选择了新的头像。<br/>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAdminStore } from '@/stores/index.js'
-import { ElNotification } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 
 /*---------------------------------前台组件导入---------------------------------*/
 const frontLayout = () => import('@/layout/front/index.vue')
@@ -97,12 +97,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (isAdminPage && !token) {
     // 访问后台页面但没有token
-    ElNotification({
-      title: '错误',
-      message: '认证失败，请先登录！',
-      type: 'error',
-      duration: 3000,
-    })
+    ElMessage.error('认证失败，请先登录！')
     next({ name: 'adminLogin' })
     return
   }
