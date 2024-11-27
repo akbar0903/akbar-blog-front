@@ -65,6 +65,9 @@ const updatePassword = async () => {
 
 <template>
   <el-card shadow="never" class="card-box !border-none !rounded-xl">
+    <template #header>
+      <span class="text-base text-zinc-500 dark:text-white font-bold">修改密码</span>
+    </template>
     <el-form label-width="80" class="max-w-sm">
       <el-form-item label="原密码">
         <el-input v-model="passwordModel.oldPassword" type="password" show-password></el-input>

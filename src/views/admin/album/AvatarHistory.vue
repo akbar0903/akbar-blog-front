@@ -25,14 +25,15 @@ const handleSizeChange = (size) => {
 // 获取头像列表
 const avatarHistory = ref([])
 const loadAvatarHistory = async () => {
+  loading.value = true
   try {
-    loading.value = true
     const result = await adminGetAvatarListService(paginationParams.value)
     avatarHistory.value = result.data.records
     total.value = result.data.total
-    loading.value = false
   } catch (error) {
     ElMessage.error(error.message)
+  } finally {
+    loading.value = false
   }
 }
 loadAvatarHistory()
@@ -45,14 +46,15 @@ const handleDeleteAvatar = async (avatarId) => {
     type: 'warning',
   })
     .then(async () => {
+      loading.value = true
       try {
-        loading.value = true
         await adminDeleteAvatarService(avatarId)
         await loadAvatarHistory()
-        loading.value = false
         ElMessage.success('删除成功')
       } catch (error) {
         ElMessage.error(error.message)
+        loading.value = false
+      } finally {
         loading.value = false
       }
     })

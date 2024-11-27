@@ -14,12 +14,11 @@
 
 html.dark {
     --el-menu-text-color: var(--my-base-dark-text-color) !important;
-    --el-menu-bg-color: var(--my-secodary-dark-bg-color);
+    --el-menu-bg-color: var(--my-secondary-dark-bg-color);
     --el-menu-hover-bg-color: var(--my-base-dark-bg-color);
 
-    /*重置el-message-box的样式*/
     .el-message-box {
-        background-color: var(--my-message-dark-bg-color);
+        background-color: var(--my-secondary-dark-bg-color);
         --el-messagebox-title-color: var(--my-base-dark-text-color);
         --el-messagebox-content-color: var(--my-base-dark-text-color);
         border: var(--my-message-border);
@@ -32,48 +31,63 @@ html.dark {
         }
     }
 
-    /*重置el-card的样式*/
     .el-card {
         --el-card-border-color: var(--my-base-dark-border-color);
-        background-color: var(--my-secodary-dark-bg-color);
+        background-color: var(--my-secondary-dark-bg-color);
 
     }
 
-    /*重置el-table的样式*/
     .el-table {
         --el-table-text-color: var(--my-base-dark-text-color);
-        --el-table-tr-bg-color: var(--my-secodary-dark-bg-color);
+        --el-table-tr-bg-color: var(--my-secondary-dark-bg-color);
         --el-table-border-color: var(--my-base-dark-border-color);
-        --el-table-header-bg-color: var(--my-secodary-dark-bg-color);
+        --el-table-header-bg-color: var(--my-secondary-dark-bg-color);
         --el-table-row-hover-bg-color:var(--my-base-dark-border-color);
     }
 
-    /*重置el-pagination的样式*/
+    /* 重置table空数据时的样式*/
+    .el-table__empty-block {
+        background-color: var(--my-base-dark-bg-color);
+    }
+    .el-table__empty-text {
+        color: var(--my-base-dark-text-color);
+    }
+
     .el-pagination__total {
         color: var(--my-base-dark-text-color);
     }
 
-    /*重置el-loading的样式*/
     .el-loading-mask {
         background-color: var(--my-overlay-color);
     }
-    /*重置el-input的样式*/
+
     .el-input {
         --el-input-bg-color: var(--my-base-dark-bg-color);
         --el-input-text-color: var(--my-base-dark-text-color)
     }
 
-    /*重置el-form-item-label的样式*/
     .el-form-item__label {
         color: var(--my-base-dark-text-color);
     }
 
     .el-drawer {
-        --el-drawer-bg-color: var(--my-secodary-dark-bg-color);
+        --el-drawer-bg-color: var(--my-secondary-dark-bg-color);
+    }
+
+    .el-dialog {
+        --el-dialog-bg-color: var(--my-secondary-dark-bg-color);
+        --el-text-color-primary: var(--my-base-dark-text-color);
+        border: var(--my-message-border);
+    }
+    .el-dialog .el-dialog__close {
+        color: var(--my-base-dark-text-color);
+    }
+    .el-dialog .el-dialog__close:hover {
+        color: var(--my-prymary-color);
     }
 }
 
-/* 重置弹出菜单的样式*/
+/* 重置侧边栏el-menu弹出菜单的样式*/
 .el-menu--popup {
     padding: 0 !important;
 }

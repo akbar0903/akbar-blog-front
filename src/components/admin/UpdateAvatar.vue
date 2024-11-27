@@ -134,6 +134,7 @@ const uploadAvatar = async () => {
         />
       </div>
     </div>
+    <el-empty v-if="!avatarHistory.length" />
     <template #footer>
       <el-pagination
         v-model:current-page="paginationParams.pageNum"
@@ -153,7 +154,7 @@ const uploadAvatar = async () => {
 <style scoped>
 :deep(.el-upload) {
   @apply relative left-1/2 top-0 transform -translate-x-1/2 w-24 h-24;
-  @apply border-[1px] border-dashed border-gray-300 rounded-md overflow-hidden;
+  @apply border-[1px] border-dashed border-gray-400 rounded-md overflow-hidden;
   @apply transition-colors duration-300 ease-in-out;
   @apply hover:border-[var(--el-color-primary)];
 }

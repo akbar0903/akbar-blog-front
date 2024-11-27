@@ -2,6 +2,7 @@
 import DashboardCard from '@/components/admin/DashboardCard.vue'
 import { getLogListService } from '@/api/log.js'
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 // 表格加载状态
 const loading = ref(false)
@@ -29,10 +30,15 @@ const handleCurrentChange = (page) => {
 const logList = ref([])
 const getLogList = async () => {
   loading.value = true
-  const result = await getLogListService(paginationParams.value)
-  logList.value = result.data.records
-  total.value = result.data.total
-  loading.value = false
+  try {
+    const result = await getLogListService(paginationParams.value)
+    logList.value = result.data.records
+    total.value = result.data.total
+  } catch (error) {
+    ElMessage.error(error.message)
+  } finally {
+    loading.value = false
+  }
 }
 getLogList()
 </script>
@@ -103,7 +109,7 @@ getLogList()
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="details" label="详情" />
+      <el-table-column prop="details" label="详情" show-overflow-tooltip />
       <el-table-column prop="operator" label="操作人" />
       <el-table-column prop="operatedTime" label="操作时间" />
       <el-table-column prop="ipAddress" label="IP地址" />
