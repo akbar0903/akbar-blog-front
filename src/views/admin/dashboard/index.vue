@@ -102,7 +102,7 @@ getLogList()
     </template>
     <el-table :data="logList" class="!w-full" v-loading="loading">
       <el-table-column type="index" label="序号" width="80" align="center" />
-      <el-table-column prop="operationType" label="操作类型">
+      <el-table-column prop="operationType" label="操作类型" width="130">
         <template v-slot="scope">
           <el-tag :type="scope.row.logLevel">
             {{ scope.row.operationType }}

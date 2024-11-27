@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted} from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import emitter from '@/utils/emitter.js'
 
 const isSidebarOpen = ref(true)
@@ -16,6 +16,7 @@ onUnmounted(() => {
 
 <template>
   <el-main class="!p-0">
+    <!--因为el-main不能使用:class控制样式，所以这里用div包裹控制样式，如果el-main支持:class，这里可以直接使用el-main-->
     <div
       :class="isSidebarOpen ? 'ml-[170px]' : 'ml-[50px]'"
       class="pt-[60px] h-full bg-white dark:bg-zinc-900 transition-all duration-200 ease-in-out overflow-hidden"
