@@ -40,7 +40,16 @@ onUnmounted(() => {
         </template>
       </el-menu-item>
 
-      <el-sub-menu index="article-submenu">
+      <el-menu-item index="articleList" :route="{ name: 'articleList' }">
+        <el-icon>
+          <icon-mdi-file-document-multiple class="menu-icon" />
+        </el-icon>
+        <template #title>
+          <span class="menu-title">文章管理</span>
+        </template>
+      </el-menu-item>
+
+<!--      <el-sub-menu index="article-submenu">
         <template #title>
           <el-icon>
             <icon-mdi-file-document-multiple class="menu-icon" />
@@ -63,7 +72,7 @@ onUnmounted(() => {
             <span class="menu-title">文章编辑</span>
           </template>
         </el-menu-item>
-      </el-sub-menu>
+      </el-sub-menu>-->
 
       <el-menu-item index="category" :route="{ name: 'categoryList' }">
         <el-icon>

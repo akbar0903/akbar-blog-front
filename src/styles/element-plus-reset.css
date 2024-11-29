@@ -108,3 +108,7 @@ html.dark {
 .el-form-item__label {
     font-weight: bold;
 }
+
+.el-select {
+    --el-select-width: 200px !important;
+}

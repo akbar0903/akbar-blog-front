@@ -1,0 +1,17 @@
+@import 'md-editor-v3/lib/style.css';
+
+.md-editor {
+    /*box-shadow: var(--my-base-box-shadow);*/
+    @apply h-[calc(100%-48px)] rounded-xl;
+}
+
+/*因为md-editor-v3的icon的大小非常小，所以这里要进行相应的设置*/
+.md-editor-icon {
+    @apply w-6 h-6 !important;
+}
+
+/* 因为深色背景下md-editor-v3 的背景色太黑了，所以这里要进行相应的设置 */
+.md-editor-dark, .md-editor-modal-container[data-theme='dark'] {
+    --md-color: var(--my-base-dark-text-color);
+    --md-bk-color: var(--my-secondary-dark-bg-color);
+}

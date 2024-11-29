@@ -11,6 +11,7 @@ const adminLayout = () => import('@/layout/admin/index.vue')
 const adminLogin = () => import('@/views/admin/login/index.vue')
 const adminDashboard = () => import('@/views/admin/dashboard/index.vue')
 const articleList = () => import('@/views/admin/Article/List.vue')
+const articleAdd = () => import('@/views/admin/Article/Add.vue')
 const articleEdit = () => import('@/views/admin/Article/Edit.vue')
 const categoryList = () => import('@/views/admin/category/List.vue')
 const tagList = () => import('@/views/admin/tag/List.vue')
@@ -57,7 +58,12 @@ const routes = [
         name: 'articleList',
       },
       {
-        path: 'articleEdit',
+        path: 'articleAdd',
+        component: articleAdd,
+        name: 'articleAdd',
+      },
+      {
+        path: 'articleEdit/:id',
         component: articleEdit,
         name: 'articleEdit',
       },

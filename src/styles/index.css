@@ -3,6 +3,8 @@
 @import "element-plus/theme-chalk/el-message.css";
 @import "element-plus/theme-chalk/el-button.css";
 @import "@/styles/element-plus-reset.css";
+@import "@/styles/md-editor-v3-reset.css";
+
 
 html {
     font-size: 16px;

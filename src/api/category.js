@@ -10,6 +10,14 @@ export const getCategoryListService = (paginationParams) => {
 }
 
 /**
+ * 获取文章分类列表（不分页）
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export const getNoPaginationCategoryListService = () => {
+  return request.get('/category/noPage')
+}
+
+/**
  * 添加文章分类
  * @returns {Promise<axios.AxiosResponse<any>>}
  * @param data

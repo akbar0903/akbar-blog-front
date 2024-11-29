@@ -10,6 +10,14 @@ export const getTagListService = (paginationParams) => {
 }
 
 /**
+ * 获取不分页标签列表（不分页）
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export const getNoPaginationTagListService = () => {
+  return request.get('/tag/noPage')
+}
+
+/**
  * 添加标签
  * @param data
  * @returns {Promise<axios.AxiosResponse<any>>}

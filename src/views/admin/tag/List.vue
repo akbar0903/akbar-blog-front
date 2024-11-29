@@ -2,6 +2,7 @@
 import { addTagService, deleteTagService, getTagListService, updateTagService } from '@/api/tag.js'
 import { ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import CustomElCard from '@/components/admin/CustomElCard.vue'
 
 const loading = ref(false)
 
@@ -54,7 +55,7 @@ const editTag = (row) => {
 }
 
 // 1到10位非空字符
-const validPattern = /^\S{1,10}$/
+const validPattern = /^\S{1,20}$/
 
 // 确认新增/编辑标签
 const handleConfirm = async () => {
@@ -64,7 +65,7 @@ const handleConfirm = async () => {
   }
 
   if (!validPattern.test(formModel.value.tagName)) {
-    ElMessage.error('标签名称长度必须在1到10位之间，且不能包含空格！')
+    ElMessage.error('标签名称长度必须在1到20位，且不能包含空格！')
     return
   }
 
@@ -93,58 +94,67 @@ const deleteTag = async (id) => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
-  }).then(async () => {
-    loading.value = true
-    try {
-      await deleteTagService(id)
-      ElMessage.success('删除成功！')
-      await loadTagList()
-    } catch (error) {
-      ElMessage.error(error.message)
-    } finally {
-      loading.value = false
-    }
   })
+    .then(async () => {
+      loading.value = true
+      try {
+        await deleteTagService(id)
+        ElMessage.success('删除成功！')
+        await loadTagList()
+      } catch (error) {
+        ElMessage.error(error.message)
+      } finally {
+        loading.value = false
+      }
+    })
+    .catch(() => {
+      ElMessage.info('操作已取消！')
+    })
 }
 </script>
 
 <template>
-  <el-card class="table-box !rounded-xl">
+  <CustomElCard>
     <template #header>
       <div class="flex justify-between items-center">
         <span class="text-base text-zinc-500 dark:text-white font-bold">标签管理</span>
-        <el-button class="!ml-auto" type="success" @click="addTag">新增标签</el-button>
+        <el-button class="!ml-auto" type="success" @click="addTag">
+          <icon-mdi-plus />
+          新增标签
+        </el-button>
       </div>
     </template>
-    <el-table :data="tagList" class="!w-full" v-loading="loading">
-      <el-table-column type="index" label="序号" width="80" align="center" />
-      <el-table-column prop="tagName" label="标签名称">
-        <template v-slot="scope">
-          <el-tag type="success">{{ scope.row.tagName }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createdTime" label="创建时间" />
-      <el-table-column prop="updatedTime" label="更新时间" />
-      <el-table-column prop="operator" label="操作" align="center">
-        <template #default="scope">
-          <el-button type="primary" plain @click="editTag(scope.row)"> 修改</el-button>
-          <el-button type="danger" @click="deleteTag(scope.row.id)"> 删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      class="!mt-4 justify-self-end"
-      v-model:current-page="paginationParams.pageNum"
-      v-model:page-size="paginationParams.pageSize"
-      :page-sizes="[5, 10, 20, 30]"
-      size="default"
-      background
-      layout="total,sizes, prev, pager, next"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
-  </el-card>
+    <template #body>
+      <el-table :data="tagList" class="!w-full" v-loading="loading">
+        <el-table-column type="index" label="序号" width="80" align="center" />
+        <el-table-column prop="tagName" label="标签名称">
+          <template v-slot="scope">
+            <el-tag type="success">{{ scope.row.tagName }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="createdTime" label="创建时间" />
+        <el-table-column prop="updatedTime" label="更新时间" />
+        <el-table-column prop="operator" label="操作" align="center">
+          <template v-slot="scope">
+            <el-button type="primary" plain @click="editTag(scope.row)"> 修改</el-button>
+            <el-button type="danger" @click="deleteTag(scope.row.id)"> 删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="!mt-4 justify-self-end"
+        v-model:current-page="paginationParams.pageNum"
+        v-model:page-size="paginationParams.pageSize"
+        :page-sizes="[5, 10, 20, 30]"
+        size="default"
+        background
+        layout="total,sizes, prev, pager, next"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </template>
+  </CustomElCard>
 
   <el-dialog v-model="dialogVisible" :title="formModel.id ? '编辑标签' : '新增标签'" width="350">
     <el-form>
@@ -158,5 +168,3 @@ const deleteTag = async (id) => {
     </template>
   </el-dialog>
 </template>
-
-<style scoped></style>

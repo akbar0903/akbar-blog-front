@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { ref } from 'vue'
 import { adminDeleteAvatarService, adminGetAvatarListService } from '@/api/avatar-history.js'
-import { ElImageViewer } from 'element-plus'
+import CustomElCard from '@/components/admin/CustomElCard.vue'
+import { ref } from 'vue'
 
 const loading = ref(false)
 
@@ -77,43 +77,45 @@ const handlePreviewImage = (url) => {
 </script>
 
 <template>
-  <el-card class="table-box !rounded-xl">
+  <CustomElCard>
     <template #header>
       <span class="text-base text-zinc-500 dark:text-white font-bold">头像列表</span>
     </template>
-    <el-table :data="avatarHistory" class="!w-full" v-loading="loading">
-      <el-table-column type="index" label="序号" width="80" align="center" />
-      <el-table-column prop="operationType" label="头像" align="center">
-        <template v-slot="scope">
-          <el-image
-            @click="handlePreviewImage(scope.row.avatarUrl)"
-            class="w-20 h-20 cursor-pointer"
-            :src="scope.row.avatarUrl"
-            fit="cover"
-            lazy
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="uploadedTime" label="上传时间" align="center" />
-      <el-table-column prop="operator" label="操作" align="center">
-        <template #default="scope">
-          <el-button type="danger" @click="handleDeleteAvatar(scope.row.id)"> 删除 </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      class="!mt-4 justify-self-end"
-      v-model:current-page="paginationParams.pageNum"
-      v-model:page-size="paginationParams.pageSize"
-      :page-sizes="[5, 10, 20, 30]"
-      size="default"
-      background
-      layout="total,sizes, prev, pager, next"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
-  </el-card>
+    <template #body>
+      <el-table :data="avatarHistory" class="!w-full" v-loading="loading">
+        <el-table-column type="index" label="序号" width="80" align="center" />
+        <el-table-column prop="operationType" label="头像" align="center">
+          <template v-slot="scope">
+            <el-image
+              @click="handlePreviewImage(scope.row.avatarUrl)"
+              class="w-20 h-20 cursor-pointer"
+              :src="scope.row.avatarUrl"
+              fit="cover"
+              lazy
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="uploadedTime" label="上传时间" align="center" />
+        <el-table-column prop="operator" label="操作" align="center">
+          <template #default="scope">
+            <el-button type="danger" @click="handleDeleteAvatar(scope.row.id)"> 删除 </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="!mt-4 justify-self-end"
+        v-model:current-page="paginationParams.pageNum"
+        v-model:page-size="paginationParams.pageSize"
+        :page-sizes="[5, 10, 20, 30]"
+        size="default"
+        background
+        layout="total,sizes, prev, pager, next"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </template>
+  </CustomElCard>
 
   <el-image-viewer
     v-if="isViewerVisible"
@@ -122,9 +124,3 @@ const handlePreviewImage = (url) => {
     @close="isViewerVisible = false"
   />
 </template>
-
-<style scoped>
-.table-box {
-  box-shadow: var(--my-base-box-shadow) !important;
-}
-</style>
