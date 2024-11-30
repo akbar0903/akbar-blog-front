@@ -28,7 +28,7 @@ const emit = defineEmits(['update:modelValue'])
     :model-value="modelValue"
     @update:modelValue="emit('update:modelValue', $event)"
     clearable
-    placeholder="文章分类"
+    placeholder="分类"
   >
     <el-option
       v-for="category in categoryList"

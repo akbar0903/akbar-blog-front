@@ -34,7 +34,7 @@ html.dark {
     .el-card {
         --el-card-border-color: var(--my-base-dark-border-color);
         background-color: var(--my-secondary-dark-bg-color);
-
+        --el-box-shadow-light: 0px 0px 12px rgba(255,255,255,0.3);
     }
 
     .el-table {
@@ -85,6 +85,19 @@ html.dark {
     .el-dialog .el-dialog__close:hover {
         color: var(--my-prymary-color);
     }
+
+    .el-radio {
+        --el-radio-text-color: var(--my-base-dark-text-color);
+    }
+
+    .el-checkbox {
+        --el-checkbox-text-color: var(--my-base-dark-text-color);
+    }
+
+    .el-textarea {
+        --el-input-bg-color: #27272a;  /*zinc-800*/
+        --el-input-text-color: var(--my-base-dark-text-color);
+    }
 }
 
 /* 重置侧边栏el-menu弹出菜单的样式*/
@@ -111,4 +124,17 @@ html.dark {
 
 .el-select {
     --el-select-width: 200px !important;
+}
+
+#article-cover-history-dialog {
+    position: relative;
+    height: 500px;
+}
+#article-cover-history-dialog .el-dialog__body {
+    padding-bottom: 60px;
+}
+#article-cover-history-dialog .el-dialog__footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }

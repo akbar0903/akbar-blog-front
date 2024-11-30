@@ -14,7 +14,7 @@ const loading = ref(false)
 // 文章列表请求参数/分页参数
 const params = ref({
   pageNum: 1,
-  pageSize: 10,
+  pageSize: 8,
   state: null,
   categoryId: null,
   tagId: null,
@@ -46,12 +46,30 @@ const loadArticleList = async () => {
 }
 loadArticleList()
 
-// 根据逗号分割的标签字符串，获取标签数组
-const getTagNames = (tagStr) => {
-  if (!tagStr) {
-    return []
+// 搜索
+const handleSearch = () => {
+  if (
+    params.value.state === null &&
+    params.value.categoryId === null &&
+    params.value.tagId === null
+  ) {
+    ElMessage.warning('请选择搜索条件！')
+    return
   }
-  return tagStr.split(',')
+  params.value.pageNum = 1
+  loadArticleList()
+}
+
+// 重置
+const handleReset = () => {
+  params.value = {
+    pageNum: 1,
+    pageSize: 8,
+    state: null,
+    categoryId: null,
+    tagId: null,
+  }
+  loadArticleList()
 }
 
 // 新增文章
@@ -69,15 +87,15 @@ const editArticle = (articleId) => {
   <CustomElCard>
     <template #header>
       <div class="flex justify-between items-center">
-        <div class="flex items-center">
-          <span class="mr-10 text-base text-zinc-500 dark:text-white font-bold">文章列表</span>
-          <div class="flex items-center space-x-4">
-            <el-select clearable v-model="params.state"></el-select>
-            <CategorySelect v-model="params.categoryId" />
-            <TagSelect v-model="params.tagId" />
-            <el-button type="primary">搜索</el-button>
-            <el-button type="primary" plain>重置</el-button>
-          </div>
+        <div class="flex items-center space-x-4">
+          <el-select clearable v-model="params.state" placeholder="状态">
+            <el-option label="发布" value="发布" />
+            <el-option label="草稿" value="草稿" />
+          </el-select>
+          <CategorySelect v-model="params.categoryId" />
+          <TagSelect v-model="params.tagId" />
+          <el-button type="primary" @click="handleSearch">搜索</el-button>
+          <el-button type="primary" plain @click="handleReset">重置</el-button>
         </div>
         <el-button class="!ml-auto" type="success" @click="addArticle">
           <icon-mdi-plus />
@@ -87,25 +105,38 @@ const editArticle = (articleId) => {
     </template>
     <template #body>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div
+        <el-card
           v-for="article in articleList"
           :key="article.id"
-          class="bg-white border border-gray-350 rounded-lg shadow-lg p-4 space-y-4 dark:bg-zinc-900 dark:text-white"
+          shadow="hover"
+          class="!rounded-lg space-y-4"
         >
-          <el-image :src="article.coverImage" fit="cover" lazy class="rounded-lg w-full h-48" />
+          <el-image :src="article.coverImage" fit="cover" lazy class="rounded-lg w-full h-48">
+            <template #error>
+              <div class="flex justify-center items-center w-full h-48 bg-gray-200">
+                <icon-mdi-image-broken-variant class="text-xl text-gray-400" />
+              </div>
+            </template>
+          </el-image>
           <div class="flex flex-col space-y-2">
             <div class="flex justify-between items-center">
               <h3 class="text-lg font-bold text-slate-700 dark:text-white truncate">
                 {{ article.title }}
               </h3>
-              <el-tag v-if="article.state === 'published'" type="success">已发布</el-tag>
-              <el-tag v-else type="warning">草稿</el-tag>
+              <el-tag :type="article.state === '发布' ? 'success' : 'warning'">
+                {{ article.state }}
+              </el-tag>
             </div>
             <div>
               <p class="text-sm text-slate-600 dark:text-white">分类: {{ article.categoryName }}</p>
             </div>
-            <div class="flex flex-wrap gap-2">
-              <span v-for="(tagName, index) in getTagNames(article.tagNames)" :key="index">
+            <div class="flex items-center gap-2">
+              <p class="text-sm text-slate-600 dark:text-white text-nowrap">标签:</p>
+              <span
+                v-for="(tagName, index) in article.tagNames"
+                :key="index"
+                class="flex items-center"
+              >
                 <el-tag class="mt-1" size="small">{{ tagName }}</el-tag>
               </span>
             </div>
@@ -119,14 +150,14 @@ const editArticle = (articleId) => {
             <el-button type="primary" @click="editArticle(article.id)">修改</el-button>
             <el-button type="danger" @click="deleteCategory(article.id)">删除</el-button>
           </div>
-        </div>
+        </el-card>
       </div>
 
       <el-pagination
         class="mt-6 justify-self-end"
         v-model:current-page="params.pageNum"
         v-model:page-size="params.pageSize"
-        :page-sizes="[5, 10, 20, 30]"
+        :page-sizes="[8, 16, 32, 48]"
         size="default"
         background
         layout="total, sizes, prev, pager, next"
