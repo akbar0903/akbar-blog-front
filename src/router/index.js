@@ -11,6 +11,7 @@ const adminLayout = () => import('@/layout/admin/index.vue')
 const adminLogin = () => import('@/views/admin/login/index.vue')
 const adminDashboard = () => import('@/views/admin/dashboard/index.vue')
 const articleList = () => import('@/views/admin/Article/List.vue')
+const articlePreview = () => import('@/views/admin/Article/Preview.vue')
 const articleAdd = () => import('@/views/admin/Article/Add.vue')
 const articleEdit = () => import('@/views/admin/Article/Edit.vue')
 const categoryList = () => import('@/views/admin/category/List.vue')
@@ -58,6 +59,11 @@ const routes = [
         name: 'articleList',
       },
       {
+        path: 'articlePreview/:id',
+        component: articlePreview,
+        name: 'articlePreview',
+      },
+      {
         path: 'articleAdd',
         component: articleAdd,
         name: 'articleAdd',
@@ -97,7 +103,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 })
 

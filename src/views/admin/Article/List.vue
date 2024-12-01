@@ -1,6 +1,6 @@
 <script setup>
-import { getArticleListService } from '@/api/article.js'
-import { ElMessage } from 'element-plus'
+import { deleteArticleService, getArticleListService } from '@/api/article.js'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import CustomElCard from '@/components/admin/CustomElCard.vue'
 import CategorySelect from '@/components/admin/CategorySelect.vue'
 import TagSelect from '@/components/admin/TagSelect.vue'
@@ -8,8 +8,6 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 const router = useRouter()
-
-const loading = ref(false)
 
 // 文章列表请求参数/分页参数
 const params = ref({
@@ -33,15 +31,12 @@ const handleSizeChange = (size) => {
 // 加载文章列表数据
 const articleList = ref([])
 const loadArticleList = async () => {
-  loading.value = true
   try {
     const result = await getArticleListService(params.value)
     articleList.value = result.data.records
     total.value = result.data.total
   } catch (error) {
     ElMessage.error(error.message)
-  } finally {
-    loading.value = false
   }
 }
 loadArticleList()
@@ -80,6 +75,27 @@ const addArticle = () => {
 // 编辑文章
 const editArticle = (articleId) => {
   router.push({ name: 'articleEdit', params: { id: articleId } })
+}
+
+// 删除文章
+const deleteArticle = async (articleId) => {
+  await ElMessageBox.confirm('确认删除该文章吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  })
+    .then(async () => {
+      try {
+        await deleteArticleService(articleId)
+        await loadArticleList()
+        ElMessage.success('删除成功！')
+      } catch (error) {
+        ElMessage.error(error.message)
+      }
+    })
+    .catch(() => {
+      ElMessage.info('操作已取消！')
+    })
 }
 </script>
 
@@ -120,9 +136,14 @@ const editArticle = (articleId) => {
           </el-image>
           <div class="flex flex-col space-y-2">
             <div class="flex justify-between items-center">
-              <h3 class="text-lg font-bold text-slate-700 dark:text-white truncate">
-                {{ article.title }}
-              </h3>
+              <router-link
+                :to="{ name: 'articlePreview', params: { id: article.id } }"
+                class="truncate text-lg font-bold text-slate-700 dark:text-white hover:text-blue-500 dark:hover:text-blue-500"
+              >
+                <h3 class="truncate">
+                  {{ article.title }}
+                </h3>
+              </router-link>
               <el-tag :type="article.state === '发布' ? 'success' : 'warning'">
                 {{ article.state }}
               </el-tag>
@@ -148,7 +169,7 @@ const editArticle = (articleId) => {
 
           <div class="flex justify-between mt-4">
             <el-button type="primary" @click="editArticle(article.id)">修改</el-button>
-            <el-button type="danger" @click="deleteCategory(article.id)">删除</el-button>
+            <el-button type="danger" @click="deleteArticle(article.id)">删除</el-button>
           </div>
         </el-card>
       </div>
