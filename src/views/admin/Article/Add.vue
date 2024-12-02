@@ -5,9 +5,9 @@ import { ElMessage } from 'element-plus'
 import { addArticleService } from '@/api/article.js'
 import router from '@/router/index.js'
 import { fileUploadService } from '@/api/upload.js'
-import { getArticleCoverHistoryService } from '@/api/article-cover-history.js'
 import CategoryLoader from '@/components/admin/CategoryLoader.vue'
 import TagLoader from '@/components/admin/TagLoader.vue'
+import ArticleCoverHistory from '@/components/admin/ArticleCoverHistory.vue'
 import { ref, watch } from 'vue'
 
 /*----------------------------------------- 编辑器配置 ------------------------------*/
@@ -178,50 +178,30 @@ const uploadCoverImage = async (file) => {
   }
 }
 
-// 获取文章封面历史记录
+// 文章封面弹窗
 const dialogVisible = ref(false)
-const coverHistory = ref([])
-const paginationParams = ref({ pageNum: 1, pageSize: 10 })
-const total = ref(0)
-const loadCoverHistory = async () => {
-  try {
-    const result = await getArticleCoverHistoryService(paginationParams.value)
-    coverHistory.value = result.data.records
-    total.value = result.data.total
-  } catch (error) {
-    ElMessage.error(error.message)
-  }
+const handleDialogVisible = () => {
+  dialogVisible.value = !dialogVisible.value
 }
-loadCoverHistory()
 
 // 选择文章封面并预览
 const isHistoryCover = ref(false)
 const selectedFile = ref(null)
 const imagePreview = ref(null)
-const onSelectFile = (uploadFile) => {
+const getOnSelectFile = (uploadFile) => {
   imagePreview.value = URL.createObjectURL(uploadFile.raw)
   selectedFile.value = uploadFile.raw
   isHistoryCover.value = false
-  dialogVisible.value = false
+  handleDialogVisible()
 }
 
 // 选择文章封面历史记录
-const selectHistoryCover = (coverUrl) => {
+const getSelectHistoryCover = (coverUrl) => {
   selectedFile.value = coverUrl
   imagePreview.value = coverUrl
   params.value.coverImage = coverUrl
   isHistoryCover.value = true
-  dialogVisible.value = false
-}
-
-// 分页处理
-const handleSizeChange = (size) => {
-  paginationParams.value.pageSize = size
-  loadCoverHistory()
-}
-const handleCurrentChange = (currentPage) => {
-  paginationParams.value.pageNum = currentPage
-  loadCoverHistory()
+  handleDialogVisible()
 }
 </script>
 
@@ -324,7 +304,7 @@ const handleCurrentChange = (currentPage) => {
         <span class="text-base text-zinc-500 dark:text-white font-bold">封面</span>
         <div class="flex justify-center">
           <div
-            @click="dialogVisible = true"
+            @click="handleDialogVisible"
             class="w-36 h-36 relative flex justify-center items-center dark:bg-zinc-800 border-[1px] border-dashed border-gray-300 hover:border-[var(--el-color-primary)] rounded-lg cursor-pointer overflow-hidden group transition-colors duration-300 ease-in-out"
           >
             <img
@@ -375,49 +355,15 @@ const handleCurrentChange = (currentPage) => {
   </el-drawer>
 
   <!-- 文章封面历史记录 -->
-  <el-dialog v-model="dialogVisible" id="article-cover-history-dialog" width="610">
-    <template #header>
-      <span class="text-base text-zinc-500 dark:text-white font-bold">选择文章封面</span>
-    </template>
-    <div class="flex flex-wrap flex-shrink-0 gap-4 p-4">
-      <el-upload action="" :show-file-list="false" :on-change="onSelectFile" :auto-upload="false">
-        <icon-mdi-cloud-upload class="text-xl text-center text-zinc-500 dark:text-white" />
-      </el-upload>
-      <div v-for="item in coverHistory" :key="item.id" class="w-24 h-24 overflow-hidden">
-        <img
-          :src="item.coverUrl"
-          alt="历史封面"
-          class="w-full h-full object-cover rounded-lg cursor-pointer"
-          @click="selectHistoryCover(item.coverUrl)"
-        />
-      </div>
-    </div>
-    <el-empty v-if="!coverHistory.length" />
-    <template #footer>
-      <el-pagination
-        v-model:current-page="paginationParams.pageNum"
-        v-model:page-size="paginationParams.pageSize"
-        :page-sizes="[10, 20, 30]"
-        size="default"
-        background
-        layout="total,sizes, prev, pager, next"
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
-    </template>
-  </el-dialog>
+  <ArticleCoverHistory
+    v-model="dialogVisible"
+    :send-on-select-file="getOnSelectFile"
+    :send-select-cover-history="getSelectHistoryCover"
+  />
 </template>
 
 <style scoped>
 .editor-box {
   box-shadow: var(--my-base-box-shadow);
-}
-
-:deep(.el-upload) {
-  @apply relative left-1/2 top-0 transform -translate-x-1/2 w-24 h-24;
-  @apply border-[1px] border-dashed border-gray-400 rounded-md overflow-hidden;
-  @apply transition-colors duration-300 ease-in-out;
-  @apply hover:border-[var(--el-color-primary)];
 }
 </style>
