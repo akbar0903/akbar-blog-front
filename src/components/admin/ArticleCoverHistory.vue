@@ -3,29 +3,28 @@ import { getArticleCoverHistoryService } from '@/api/article-cover-history.js'
 import { ElMessage } from 'element-plus'
 import { ref, watch } from 'vue'
 
-const props = defineProps({
-  dialogVisible: {
-    type: Boolean,
-    default: false,
-  },
+defineProps({
   sendOnSelectFile: {
     type: Function,
+    required: true,
   },
   sendSelectCoverHistory: {
     type: Function,
+    required: true,
   },
 })
-const emit = defineEmits(['update:dialogVisible'])
-const myDialogVisible = ref(props.dialogVisible)
+
+const dialogVisible = defineModel()
+
+const myDialogVisible = ref(dialogVisible.value)
 watch(
-  () => props.dialogVisible,
+  () => dialogVisible.value,
   (newVal) => {
     myDialogVisible.value = newVal
   },
 )
 const closeDialog = () => {
   myDialogVisible.value = false
-  emit('update:dialogVisible', false)
 }
 
 // 获取文章封面历史记录

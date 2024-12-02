@@ -15,3 +15,8 @@
     --md-color: var(--my-base-dark-text-color);
     --md-bk-color: var(--my-secondary-dark-bg-color);
 }
+
+/* 修改markdown编辑器代码块的字体大小 */
+.md-editor-code pre code {
+    font-size: 18px !important;
+}

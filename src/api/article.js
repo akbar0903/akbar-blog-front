@@ -28,6 +28,15 @@ export const addArticleService = (data) => {
   return request.post('/article', data)
 }
 
+/**
+ * 删除文章
+ * @param id
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
 export const deleteArticleService = (id) => {
   return request.delete(`/article/${id}`)
+}
+
+export const updateArticleService = (data) => {
+  return request.put('/article', data)
 }

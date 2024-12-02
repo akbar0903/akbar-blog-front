@@ -77,8 +77,13 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item class="!mb-0">
-          <el-button @click="login" :loading="isLoading" type="primary" class="!text-base w-full"
+        <el-form-item class="!mb-2">
+          <el-button
+            @click="login"
+            size="large"
+            :loading="isLoading"
+            type="primary"
+            class="!text-base w-full"
             >登录</el-button
           >
         </el-form-item>

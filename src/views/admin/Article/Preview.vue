@@ -52,12 +52,10 @@ loadArticle()
       {{ article.title }}
     </h1>
 
-    <!-- 文章分类 -->
-    <div v-if="article" class="mt-2 text-gray-600">
-      <span
-        class="bg-gray-200 text-gray-800 text-xs text-center font-semibold py-1 px-3 rounded-full"
-      >
-        <icon-mdi-shape class="inline" />
+    <div v-if="article" class="flex flex-wrap mt-3 text-gray-600">
+      <!-- 文章分类 -->
+      <span class="text-sm text-gray-500">
+        <icon-mdi-shape class="inline-block text-sm" />
         {{ article.categoryName }}
       </span>
 
@@ -65,7 +63,7 @@ loadArticle()
       <span
         v-for="(tag, index) in article.tagNames"
         :key="index"
-        class="ml-2 bg-blue-200 text-blue-800 text-xs font-semibold py-1 px-3 rounded-full"
+        class="ml-2 bg-blue-100 text-blue-500 text-xs font-semibold py-1 px-3 rounded-full"
       >
         <icon-mdi-tag class="inline" />
         {{ tag }}
@@ -92,7 +90,7 @@ loadArticle()
     <div class="mt-8 text-center">
       <router-link
         :to="{ name: 'articleList' }"
-        class="bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-900"
+        class="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-600"
       >
         返回首页
       </router-link>
