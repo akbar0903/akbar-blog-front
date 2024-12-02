@@ -19,6 +19,7 @@ const tagList = () => import('@/views/admin/tag/List.vue')
 const profile = () => import('@/views/admin/personal/Profile.vue')
 const updatePWD = () => import('@/views/admin/personal/UpdatePWD.vue')
 const avatarHistory = () => import('@/views/admin/album/AvatarHistory.vue')
+const articleCoverList = () => import('@/views/admin/album/ArticleCoverList.vue')
 
 const routes = [
   /*---------------------------------前台路由---------------------------------*/
@@ -87,6 +88,11 @@ const routes = [
         path: 'avatarHistory',
         component: avatarHistory,
         name: 'avatarHistory',
+      },
+      {
+        path: 'articleCoverList',
+        component: articleCoverList,
+        name: 'articleCoverList',
       },
       {
         path: 'profile',

@@ -49,31 +49,6 @@ onUnmounted(() => {
         </template>
       </el-menu-item>
 
-<!--      <el-sub-menu index="article-submenu">
-        <template #title>
-          <el-icon>
-            <icon-mdi-file-document-multiple class="menu-icon" />
-          </el-icon>
-          <span class="menu-title">文章管理</span>
-        </template>
-        <el-menu-item index="articleList" :route="{ name: 'articleList' }">
-          <el-icon>
-            <icon-mdi-newspaper-variant-multiple class="menu-icon" />
-          </el-icon>
-          <template #title>
-            <span class="menu-title">文章列表</span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="articleEdit" :route="{ name: 'articleEdit' }">
-          <el-icon>
-            <icon-mdi-file-document-edit class="menu-icon" />
-          </el-icon>
-          <template #title>
-            <span class="menu-title">文章编辑</span>
-          </template>
-        </el-menu-item>
-      </el-sub-menu>-->
-
       <el-menu-item index="category" :route="{ name: 'categoryList' }">
         <el-icon>
           <icon-mdi-folder-multiple class="menu-icon" />
@@ -105,6 +80,14 @@ onUnmounted(() => {
           </el-icon>
           <template #title>
             <span class="menu-title">头像列表</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="articleCoverList" :route="{ name: 'articleCoverList' }">
+          <el-icon>
+            <icon-mdi-image-edit class="menu-icon" />
+          </el-icon>
+          <template #title>
+            <span class="menu-title">文章封面列表</span>
           </template>
         </el-menu-item>
       </el-sub-menu>
