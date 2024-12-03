@@ -84,13 +84,7 @@ const scrollElement = document.documentElement
 
       <!-- 文章内容 -->
       <div v-if="article" class="mt-8 text-gray-700 text-lg">
-        <MdPreview
-          codeTheme="atom"
-          v-model="article.content"
-          previewTheme="cyanosis"
-          noImgZoomIn
-          :id="id"
-        />
+        <MdPreview codeTheme="atom" v-model="article.content" previewTheme="cyanosis" :id="id" />
       </div>
 
       <!-- 加载中提示 -->

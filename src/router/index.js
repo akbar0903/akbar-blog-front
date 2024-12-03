@@ -20,6 +20,7 @@ const profile = () => import('@/views/admin/personal/Profile.vue')
 const updatePWD = () => import('@/views/admin/personal/UpdatePWD.vue')
 const avatarHistory = () => import('@/views/admin/album/AvatarHistory.vue')
 const articleCoverList = () => import('@/views/admin/album/ArticleCoverList.vue')
+const errorPage = () => import('@/views/admin/error-page/404.vue')
 
 const routes = [
   /*---------------------------------前台路由---------------------------------*/
@@ -103,6 +104,11 @@ const routes = [
         path: 'updatePWD',
         component: updatePWD,
         name: 'updatePWD',
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        component: errorPage,
+        name: 'NotFound',
       },
     ],
   },
