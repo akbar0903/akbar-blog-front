@@ -2,6 +2,8 @@
 import { MdEditor, DropdownToolbar } from 'md-editor-v3'
 import { ref, watch } from 'vue'
 import { useAdminStore } from '@/stores/index.js'
+import { fileUploadService } from '@/api/upload.js'
+import { ElMessage } from 'element-plus'
 
 // 子组件数据跟父组件进行双向绑定
 const content = defineModel()
@@ -53,15 +55,7 @@ const toolbars = [
 ]
 
 // 预览主题选择按钮
-const previewTheme = ref([
-  'default',
-  'github',
-  'vuepress',
-  'mk-cute',
-  'smart-blue',
-  'cyanosis',
-  'healer-readable',
-])
+const previewTheme = ref(['default', 'github', 'vuepress', 'mk-cute', 'smart-blue', 'cyanosis'])
 
 const previewThemeVisible = ref(false)
 const previewThemeOnChange = () => {
@@ -91,6 +85,24 @@ const selectedCodeTheme = ref('github')
 const codeThemeHandler = (codeTheme) => {
   selectedCodeTheme.value = codeTheme
 }
+
+// 图片上传
+const onUploadImg = async (files, callback) => {
+  try {
+    const result = await fileUploadService(files[0])
+    const imageUrl = result.data
+    callback([
+      {
+        url: imageUrl,
+        alt: files[0].name,
+        title: files[0].name,
+      },
+    ])
+    ElMessage.success('图片上传成功！')
+  } catch (error) {
+    ElMessage.error('图片上传失败！' + error.message)
+  }
+}
 </script>
 
 <template>
@@ -101,6 +113,9 @@ const codeThemeHandler = (codeTheme) => {
     noPrettier
     :previewTheme="previewSelectedTheme"
     :codeTheme="selectedCodeTheme"
+    noMermaid
+    :codeFoldable="false"
+    @onUploadImg="onUploadImg"
   >
     <template #defToolbars>
       <DropdownToolbar title="主题" :visible="previewThemeVisible" :onChange="previewThemeOnChange">
