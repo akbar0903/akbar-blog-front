@@ -6,7 +6,7 @@ import request from '@/utils/request.js'
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
 export const getCategoryListService = (paginationParams) => {
-  return request.get('/category', { params: paginationParams })
+  return request.get('/category/list', { params: paginationParams })
 }
 
 /**

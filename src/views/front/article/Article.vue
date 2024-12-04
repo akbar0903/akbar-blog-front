@@ -1,12 +1,13 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import Pagination from '@/components/front/Pagination.vue'
 import { getArticleListService } from '@/api/article'
 import { ElMessage } from 'element-plus'
 import BackToTop from '@/components/front/BackToTop.vue'
 
 const router = useRouter()
+const route = useRoute()
 const currentPage = ref(1)
 const totalPages = ref(0)
 const articles = ref([])
@@ -15,6 +16,10 @@ const loading = ref(false)
 // 控制回到顶部按钮的显示
 const showBackToTop = ref(false)
 const scrollThreshold = 300 // 滚动阈值
+
+// 从 URL 参数中恢复页码
+const initPage = parseInt(route.query.page) || 1
+currentPage.value = initPage
 
 // 监听滚动
 const handleScroll = () => {
@@ -48,11 +53,14 @@ const fetchArticles = async (page = 1) => {
   }
 }
 
-// 监听页码变化
+// 修改页码变化处理函数
 const handlePageChange = (page) => {
   currentPage.value = page
+  // 更新 URL 参数
+  router.push({
+    query: { ...route.query, page }
+  })
   fetchArticles(page)
-  // 滚动到顶部
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
@@ -64,9 +72,9 @@ const goToDetail = (id) => {
   })
 }
 
-// 初始加载
+// 初始加载时使用 URL 中的页码
 onMounted(() => {
-  fetchArticles(1)
+  fetchArticles(currentPage.value)
 })
 </script>
 

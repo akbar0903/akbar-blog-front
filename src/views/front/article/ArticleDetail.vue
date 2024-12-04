@@ -143,7 +143,12 @@ onUnmounted(() => {
 
       <!-- 文章内容 -->
       <div class="container max-w-5xl mx-auto px-6 py-8">
-        <MdPreview codeTheme="atom" :model-value="article.content" previewTheme="cyanosis" :id="id" />
+        <MdPreview
+          codeTheme="atom"
+          :model-value="article.content"
+          previewTheme="cyanosis"
+          :id="id"
+        />
       </div>
     </article>
 
@@ -168,12 +173,7 @@ onUnmounted(() => {
       class="lg:hidden fixed right-4 bottom-20 w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-blue-600 transition-colors"
       @click="toggleCatalog"
     >
-      <svg
-        class="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -184,10 +184,7 @@ onUnmounted(() => {
     </button>
 
     <!-- 回到顶部按钮 -->
-    <BackToTop
-      v-show="showBackToTop"
-      class="!fixed !right-4 !bottom-4 !w-12 !h-12"
-    />
+    <BackToTop v-show="showBackToTop" class="!fixed !right-4 !bottom-4 !w-12 !h-12" />
 
     <!-- 移动端目录抽屉 -->
     <div
@@ -202,16 +199,8 @@ onUnmounted(() => {
       >
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-bold">文章目录</h3>
-          <button
-            class="text-gray-500 hover:text-gray-700"
-            @click="toggleCatalog"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+          <button class="text-gray-500 hover:text-gray-700" @click="toggleCatalog">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"

@@ -18,7 +18,7 @@ export const adminLoginService = (loginData) => {
  * @returns {*}
  */
 export const adminGetInfoService = () => {
-  return request.get('/admin')
+  return request.get('/admin/info')
 }
 
 /**

@@ -6,7 +6,7 @@ import request from '@/utils/request.js'
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
 export const getArticleListService = (params) => {
-  return request.get('article', { params: params })
+  return request.get('/article/list', { params: params })
 }
 
 
@@ -16,7 +16,7 @@ export const getArticleListService = (params) => {
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
 export const getArticleDetailService = (id) => {
-  return request.get(`article/${id}`)
+  return request.get(`/article/${id}`)
 }
 
 /**
@@ -34,7 +34,7 @@ export const addArticleService = (data) => {
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
 export const deleteArticleService = (id) => {
-  return request.delete(`/article/${id}`)
+  return request.delete(`/article/del/${id}`)
 }
 
 export const updateArticleService = (data) => {

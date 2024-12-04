@@ -6,7 +6,7 @@ import request from '@/utils/request.js'
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
 export const getTagListService = (paginationParams) => {
-  return request.get('/tag', { params: paginationParams })
+  return request.get('/tag/list', { params: paginationParams })
 }
 
 /**
