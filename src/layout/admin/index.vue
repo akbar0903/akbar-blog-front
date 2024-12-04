@@ -10,9 +10,9 @@ adminStore.getAdmin()
 </script>
 
 <template>
-  <el-container class="h-full">
+  <el-container class="h-screen">
     <Navbar />
-    <el-container>
+    <el-container class="h-full">
       <Sidebar />
       <Main />
     </el-container>

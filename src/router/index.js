@@ -4,7 +4,12 @@ import { ElMessage } from 'element-plus'
 
 /*---------------------------------前台组件导入---------------------------------*/
 const frontLayout = () => import('@/layout/front/index.vue')
-const dashboard = () => import('@/views/front/dashboard/index.vue')
+const frontArticleList = () => import('@/views/front/article/Article.vue')
+const articleDetail = () => import('@/views/front/article/ArticleDetail.vue')
+const frontTagList = () => import('@/views/front/tag/Tag.vue')
+const frontCategoryList = () => import('@/views/front/category/Category.vue')
+const archive = () => import('@/views/front/archive/Archive.vue')
+const about = () => import('@/views/front/about/About.vue')
 
 /*---------------------------------后台组件导入------------------------------- */
 const adminLayout = () => import('@/layout/admin/index.vue')
@@ -23,22 +28,6 @@ const articleCoverList = () => import('@/views/admin/album/ArticleCoverList.vue'
 const errorPage = () => import('@/views/admin/error-page/404.vue')
 
 const routes = [
-  /*---------------------------------前台路由---------------------------------*/
-  {
-    path: '/',
-    component: frontLayout,
-    name: 'frontLayout',
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: dashboard,
-        name: 'dashboard',
-      },
-    ],
-  },
-
-  /*---------------------------------后台路由---------------------------------*/
   {
     path: '/admin/login',
     component: adminLogin,
@@ -111,6 +100,54 @@ const routes = [
         name: 'NotFound',
       },
     ],
+  },
+  {
+    path: '/',
+    component: frontLayout,
+    name: 'frontLayout',
+    redirect: '/articleList',
+    children: [
+      {
+        path: '',
+        name: 'home',
+        redirect: '/articleList',
+      },
+      {
+        path: 'articleList',
+        name: 'frontArticleList',
+        component: frontArticleList,
+      },
+      {
+        path: 'articleDetail/:id',
+        name: 'frontArticleDetail',
+        component: articleDetail,
+      },
+      {
+        path: 'tagList',
+        name: 'frontTagList',
+        component: frontTagList,
+      },
+      {
+        path: 'categoryList',
+        name: 'frontCategoryList',
+        component: frontCategoryList,
+      },
+      {
+        path: 'archive',
+        name: 'archive',
+        component: archive,
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: about,
+      },
+    ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: errorPage,
+    name: 'NotFound',
   },
 ]
 

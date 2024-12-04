@@ -52,7 +52,7 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
 </script>
 
 <template>
-  <div class="login-container h-full flex justify-center items-center">
+  <div class="login-container h-screen flex justify-center items-center">
     <el-card class="max-w-xs w-full !rounded-md">
       <h1 class="text-center font-semibold text-2xl text-slate-700 mb-4">管理员登录</h1>
 

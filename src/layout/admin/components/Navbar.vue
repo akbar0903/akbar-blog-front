@@ -71,7 +71,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 px-5 w-full h-[60px] bg-white dark:bg-zinc-900">
+  <header class="fixed top-0 left-0 px-5 w-full h-[60px] bg-white dark:bg-zinc-900 z-50">
     <div class="w-full h-full flex items-center justify-between dark:bg-zinc-900">
       <!-- 左侧容器-->
       <div class="flex items-center justify-center space-x-2">

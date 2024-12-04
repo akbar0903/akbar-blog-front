@@ -5,19 +5,18 @@
 @import "@/styles/element-plus-reset.css";
 @import "@/styles/md-editor-v3-reset.css";
 
-html {
-    font-size: 16px;
-    height: 100%;
-    overflow: hidden;
+html, body {
+  min-height: 100%;
+  width: 100%;
+  font-size: 16px;
 }
 
 body {
-    height: 100%;
-    overflow: hidden;
+  @apply bg-gray-50;
 }
 
 #app {
-    height: 100%;
-    overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
 }
 
