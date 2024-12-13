@@ -16,10 +16,10 @@ const messages = {
   <div class="wscn-http404-container">
     <div class="wscn-http404">
       <div class="pic-404">
-        <img class="pic-404__parent" :src="images.errorPng" alt="404">
-        <img class="pic-404__child left" :src="images.cloudPng" alt="404">
-        <img class="pic-404__child mid" :src="images.cloudPng" alt="404">
-        <img class="pic-404__child right" :src="images.cloudPng" alt="404">
+        <img class="pic-404__parent" :src="images.errorPng" alt="404" />
+        <img class="pic-404__child left" :src="images.cloudPng" alt="404" />
+        <img class="pic-404__child mid" :src="images.cloudPng" alt="404" />
+        <img class="pic-404__child right" :src="images.cloudPng" alt="404" />
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">{{ messages.bullshit__oops }}</div>

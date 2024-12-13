@@ -58,10 +58,9 @@ const logout = async () => {
     type: 'warning',
   })
     .then(() => {
-      router.push({ name: 'adminLogin' })
-      adminStore.setAdmin({})
-      document.documentElement.classList.remove('dark')
       adminStore.removeToken()
+      document.documentElement.classList.remove('dark')
+      router.push({ name: 'adminLogin' })
       ElMessage.success('欢迎下次光临！')
     })
     .catch(() => {

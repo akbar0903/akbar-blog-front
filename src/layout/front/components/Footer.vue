@@ -12,9 +12,13 @@ const adminStore = useAdminStore()
           <p>&copy; 2024 艾克的博客. 保留所有权利</p>
         </div>
         <div class="flex space-x-4">
-          <a :href="adminStore.admin.githubUrl" class="hover:text-gray-300"> GitHub </a>
-          <a :href="adminStore.admin.giteeUrl" class="hover:text-gray-300">Gitee</a>
-          <a :href="adminStore.admin.biliUrl" class="hover:text-gray-300">BiliBili</a>
+          <a :href="adminStore.admin.githubUrl" target="_blank" class="hover:text-gray-300"
+            >GitHub
+          </a>
+          <a :href="adminStore.admin.giteeUrl" target="_blank" class="hover:text-gray-300">Gite</a>
+          <a :href="adminStore.admin.biliUrl" target="_blank" class="hover:text-gray-300"
+            >BiliBili</a
+          >
         </div>
       </div>
     </div>

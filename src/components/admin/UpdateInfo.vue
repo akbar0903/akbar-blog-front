@@ -34,9 +34,9 @@ const updateAdminInfo = async () => {
 
   try {
     await adminUpdateInfoService(adminModule.value)
-    ElMessage.success('管理员信息修改成功！')
     const result = await adminGetInfoService()
     adminStore.setAdmin(result.data)
+    ElMessage.success('管理员信息修改成功！')
   } catch (error) {
     ElMessage.error(error.message)
   }

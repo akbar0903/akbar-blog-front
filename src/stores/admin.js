@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { adminGetInfoService } from '@/api/admin.js'
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 
 /**
@@ -10,7 +11,10 @@ export const useAdminStore = defineStore(
   'blog-front-ultimate',
   () => {
     const token = ref('')
-    const admin = ref({})
+    const admin = ref({
+      avatar:
+        'https://blog-ultimate.oss-cn-beijing.aliyuncs.com/f7eb7354-d3a7-42f7-ac17-590a6ed6c671.jpg',
+    })
     const theme = ref('')
 
     const setToken = (newToken) => {
@@ -21,13 +25,18 @@ export const useAdminStore = defineStore(
     }
 
     const getAdmin = async () => {
-      const result = await adminGetInfoService()
-      admin.value = result.data
+      try {
+        const result = await adminGetInfoService()
+        admin.value = result.data
+      } catch (error) {
+        ElMessage.error('管理员信息获取失败：' + error.message)
+      }
     }
 
-    //清除用户信息
+    //设置管理员信息
     const setAdmin = (obj) => {
-      admin.value = obj
+      // 这里真的是一个很巧妙的做法，如果...obj里面的属性跟admin.value原来的属性相同的化，...obj会覆盖掉admin.value原来的属性。
+      admin.value = { ...admin.value, ...obj }
     }
 
     const setTheme = (newTheme) => {

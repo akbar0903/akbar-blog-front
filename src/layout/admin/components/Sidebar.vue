@@ -124,6 +124,9 @@ onUnmounted(() => {
 .menu-title {
   @apply font-semibold;
 }
+.menu-icon {
+  @apply w-6 h-6;
+}
 
 :deep(.el-sub-menu__title) {
   @apply rounded-lg !important;
